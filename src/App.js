@@ -1,10 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ChgAccInfo from "./Components/ChgAccInfo";
 
 function App() {
   return (
     <div className="App">
-      <h1>Super Admin Dashboard</h1>
+      <ChgAccInfo />
     </div>
   );
 }

@@ -71,7 +71,15 @@ export default function ConnectingPage() {
               )}
             </AnimatePresence>
           </Grid>
-          <Grid item xs={2}>
+          <Grid
+            item
+            xs={2}
+            sx={{
+              display: { xs: "flex", sm: "block" },
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
             <Button variant="contained" color="primary">
               Set Up Your Shop
             </Button>

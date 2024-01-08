@@ -36,9 +36,10 @@ export default function SetupShopStepper() {
         direction="column"
         justifyContent="center"
         alignItems="center"
+        sx={{ py: { xs: 3, sm: 0 } }}
       >
         {/* ---------Stepper Start -------------------------------------------------------- */}
-        <Box sx={{ width: "35%", pt: 3 }}>
+        <Box sx={{ width: "35%", pt: 5 }}>
           <Stepper
             activeStep={currentStep}
             alternativeLabel

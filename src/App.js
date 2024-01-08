@@ -1,12 +1,14 @@
 import React from "react";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
+// import LoginAcc from "./Components/LoginAcc";
 // import ConnectingPage from "./Components/ConnectingPage";
 import SetupShopStepper from "./Components/SetupShopStepper";
 // import ChgAccInfo from "./Components/ChgAccInfo";
 // import FBlogin from "./Components/Fblogin";
 // import CompleteSetup from "./Components/CompleteSetup";
 import StepContextProvider from "./StepContext";
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -21,8 +23,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         <StepContextProvider>
-          {/* <ChgAccInfo />
-           */}
+          {/* <LoginAcc /> */}
+          {/* <ChgAccInfo /> */}
           {/* <FBlogin /> */}
           {/* <ConnectingPage /> */}
           <SetupShopStepper />

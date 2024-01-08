@@ -83,6 +83,7 @@ export default function StepThreeForm() {
                 component="label"
                 variant="contained"
                 startIcon={<AttachmentOutlinedIcon />}
+                sx={{ marginTop: "10px" }}
               >
                 Upload Image
                 <VisuallyHiddenInput type="file" />
@@ -93,12 +94,12 @@ export default function StepThreeForm() {
               label={
                 <div className="input-field-label">
                   <ReceiptLongOutlinedIcon color="primary" />
-                  <span>Auto Reply Message</span>
+                  <span>Receipt Header</span>
                 </div>
               }
               multiline
               rows={5}
-              sx={{ width: "38ch", marginY: "10px" }}
+              sx={{ width: "38ch", marginY: "20px" }}
               color="primary"
             />
             <TextField
@@ -106,7 +107,7 @@ export default function StepThreeForm() {
               label={
                 <div className="input-field-label">
                   <ReceiptLongOutlinedIcon color="primary" />
-                  <span>Auto Reply Message</span>
+                  <span>Receipt Footer</span>
                 </div>
               }
               multiline

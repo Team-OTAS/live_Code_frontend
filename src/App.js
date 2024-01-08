@@ -1,11 +1,35 @@
 import React from "react";
-import ChgAccInfo from "./Components/ChgAccInfo";
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material/styles";
+// import ConnectingPage from "./Components/ConnectingPage";
+import SetupShopStepper from "./Components/SetupShopStepper";
+// import ChgAccInfo from "./Components/ChgAccInfo";
+// import FBlogin from "./Components/Fblogin";
+// import CompleteSetup from "./Components/CompleteSetup";
+import StepContextProvider from "./StepContext";
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#4d3f3f",
+      contrastText: "#fff",
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <ChgAccInfo />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <StepContextProvider>
+          {/* <ChgAccInfo />
+           */}
+          {/* <FBlogin /> */}
+          {/* <ConnectingPage /> */}
+          <SetupShopStepper />
+          {/* <CompleteSetup /> */}
+        </StepContextProvider>
+      </div>
+    </ThemeProvider>
   );
 }
 

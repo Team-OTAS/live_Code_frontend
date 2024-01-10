@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { Box, Button } from "@mui/material";
 import "./../Styles/auth.css";
@@ -6,8 +6,10 @@ import { MultiStepContext } from "../StepContext";
 import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
 
-export default function StepTwoForm() {
+export default function StepTwoPage() {
   const { setStep } = useContext(MultiStepContext);
+ 
+  
   return (
     <>
       <Box>

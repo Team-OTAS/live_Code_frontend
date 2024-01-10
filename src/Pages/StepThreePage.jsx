@@ -7,6 +7,7 @@ import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
 import TextField from "@mui/material/TextField";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
+import { useNavigate } from "react-router-dom";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -20,7 +21,13 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-export default function StepThreeForm() {
+export default function StepThreePage() {
+
+  const navigate = useNavigate();
+  const handleCompleteSetup = () =>{
+    navigate('/completesetuppage');
+  }
+
   return (
     <>
       <Box>
@@ -126,7 +133,7 @@ export default function StepThreeForm() {
 
         {/* ---------Button Start -------------------------------------------------------- */}
         <Grid item xs={12} style={{ textAlign: "center", paddingTop: "20px" }}>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={handleCompleteSetup}>
             Continue The Set Up
           </Button>
         </Grid>

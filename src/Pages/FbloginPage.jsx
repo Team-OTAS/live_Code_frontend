@@ -5,15 +5,20 @@ import FBloginPhoto from "./../assets/images/FBlogin.png";
 import { Box } from "@mui/material";
 import "./../Styles/auth.css";
 import FacebookLogin from "react-facebook-login";
+import { useNavigate } from "react-router-dom";
 
-export default function FBlogin() {
+export default function FBloginPage() {
   const componentClicked = (data) => {
     console.log("data", data);
   };
-
+  const navigate = useNavigate();
   const responseFacebook = (response) => {
-    console.log(response);
-    // setaccessToken(response.accessToken);
+    console.log(response.accessToken);
+    if(response.accessToken){
+      console.log('Facebook Access Token is get');
+      navigate('/setupshopstepperpage');
+    }
+    
   };
   return (
     <>
@@ -72,7 +77,7 @@ export default function FBlogin() {
           </Grid>
           <Grid item xs={12}>
             <FacebookLogin
-              appId="872263577698057"
+              appId="1562998637806187"
               size="medium"
               autoLoad={true}
               fields="name,email,picture"

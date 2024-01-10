@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import LiveCodeLogo from "./../assets/images/logo.png";
 import ChangeAccInfo from "./../assets/images/change_account_info.png";
@@ -8,11 +8,44 @@ import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
 import Link from "@mui/material/Link";
 import "./../Styles/auth.css";
+import ChgAccInfoPage from "./ChgAccInfoPage";
+import { useNavigate } from "react-router-dom";
 
-export default function ChgAccInfo() {
+
+export default function LoginPage() {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginsuccessful, setLoginsuccessful] = useState(false);
+
+  const handleLogin = () =>{
+    const presetUsername = 'Digital Saw';
+    const presetPassword = 'Ds1234';
+
+    if(username === presetUsername && password === presetPassword){
+        console.log("Login successful");
+        setLoginsuccessful(true);
+      }else{
+        console.log('Incorrect Username or Password');
+    }
+  };
+  const navigate = useNavigate();
+
+  if(loginsuccessful){
+    navigate('/changeaccinfo');
+  }
+
   return (
     <>
-      <Box sx={{ py: 5 }}>
+      <Box
+        sx={{
+          py: 5,
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Grid
           container
           spacing={2}
@@ -25,37 +58,23 @@ export default function ChgAccInfo() {
             <img src={LiveCodeLogo} alt="live_code_logo" className="logo" />
           </Grid>
           <Grid item xs={2}>
-            <img
-              src={ChangeAccInfo}
-              alt="live_code_logo"
-              className="changeAccInfo"
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <p className="textheader">Change User Name & Password</p>
+            <p className="textheader">Login to Live Code</p>
           </Grid>
           <Grid item xs={12}>
             <Box component="div" sx={{ display: { xs: "none", sm: "block" } }}>
               <p className="textbody">
-                You can change your user name & password as you prefer.
-                <br /> Or if you dont want to change now , it perfectly fine..
-                <br />
-                You can later change it in your {""}
-                <span style={{ fontWeight: "bold" }}>
-                  profile setting &gt; security feature
-                </span>
+                Login into live code and manage your live sales with <br />{" "}
+                easy-peasy features to create endless profits without much
+                effort..
               </p>
             </Box>
             <Box component="div" sx={{ display: { xs: "block", sm: "none" } }}>
               <p className="textbody">
-                You can change your user name &<br /> password as you prefer.
-                <br /> Or if you dont want to change now ,<br /> it perfectly
-                fine..
-                <br />
-                You can later change it in your <br />
-                <span style={{ fontWeight: "bold" }}>
-                  profile setting &gt; security feature
-                </span>
+                <p className="textbody">
+                  Login into live code and manage <br /> your live sales with{" "}
+                  <br /> easy-peasy features to create <br />
+                  endless profits without much effort..
+                </p>
               </p>
             </Box>
           </Grid>
@@ -72,6 +91,8 @@ export default function ChgAccInfo() {
               <div className="input-field">
                 <TextField
                   id="outlined-error-helper-text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   label={
                     <div className="input-field-label">
                       <Person2OutlinedIcon color="primary" />
@@ -85,6 +106,8 @@ export default function ChgAccInfo() {
               <div className="input-field">
                 <TextField
                   id="outlined-error-helper-text"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   label={
                     <div className="input-field-label">
                       <PasswordOutlinedIcon color="primary" />
@@ -98,20 +121,9 @@ export default function ChgAccInfo() {
             </Box>
           </Grid>
           {/* ---------Form End  --------------------------------------------------------*/}
-          <Grid
-            item
-            xs={2}
-            sx={{
-              display: { xs: "flex", sm: "block" },
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Button variant="contained" color="primary">
-              Change information
-            </Button>
-            <Button>
-              <Link>Do it Later</Link>
+          <Grid item xs={2}>
+            <Button variant="contained" color="primary" onClick={handleLogin}>
+              Login To LiveCode
             </Button>
           </Grid>
         </Grid>

@@ -6,7 +6,7 @@ import { Box, Button } from "@mui/material";
 import "./../Styles/auth.css";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function CompleteSetup() {
+export default function CompleteSetupPage() {
   const [show] = useState(true);
   return (
     <>

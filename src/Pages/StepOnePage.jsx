@@ -9,7 +9,7 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 
-export default function StepOneForm() {
+export default function StepOnePage() {
   const { setStep } = useContext(MultiStepContext);
   return (
     <>

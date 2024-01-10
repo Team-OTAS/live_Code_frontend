@@ -5,29 +5,31 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { Box } from "@mui/material";
-import StepOneForm from "./StepOneForm";
-import StepTwoForm from "./StepTwoForm";
-import StepThreeForm from "./StepThreeForm";
-import { MultiStepContext } from "../StepContext";
 
+import { MultiStepContext } from "../StepContext";
+import StepOnePage from "./StepOnePage";
+import StepTwoPage from "./StepTwoPage";
+import StepThreePage from "./StepThreePage";
 const steps = ["shop", "reply", "receipt"];
 
-export default function SetupShopStepper() {
+export default function SetupShopStepperPage() {
   const { currentStep } = useContext(MultiStepContext);
 
   const showStep = (step) => {
     // console.log(step);
     switch (step) {
       case "1":
-        return <StepOneForm />;
+        return <StepOnePage />;
       case "2":
-        return <StepTwoForm />;
+        return <StepTwoPage />;
       case "3":
-        return <StepThreeForm />;
+        return <StepThreePage />;
       default:
-        return <StepOneForm />;
+        return <StepOnePage />;
     }
   };
+
+  
   return (
     <>
       <Grid

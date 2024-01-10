@@ -1,13 +1,19 @@
 import React from "react";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
-// import LoginAcc from "./Components/LoginAcc";
-// import ConnectingPage from "./Components/ConnectingPage";
-import SetupShopStepper from "./Components/SetupShopStepper";
-// import ChgAccInfo from "./Components/ChgAccInfo";
-// import FBlogin from "./Components/Fblogin";
-// import CompleteSetup from "./Components/CompleteSetup";
+import { createBrowserRouter, Route, Routes,RouterProvider,BrowserRouter } from "react-router-dom";
+
 import StepContextProvider from "./StepContext";
+
+
+import LoginPage from "./Pages/LoginPage";
+import ChgAccInfoPage from "./Pages/ChgAccInfoPage";
+import FBloginPage from "./Pages/FbloginPage";
+import SetupShopStepperPage from "./Pages/SetupShopStepperPage";
+import StepOnePage from "./Pages/StepOnePage";
+import StepTwoPage from "./Pages/StepTwoPage";
+import StepThreePage from "./Pages/StepThreePage";
+import CompleteSetupPage from "./Pages/CompleteSetupPage";
 
 const theme = createTheme({
   palette: {
@@ -20,18 +26,25 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+   <BrowserRouter>
+     <ThemeProvider theme={theme}>
       <div className="App">
         <StepContextProvider>
-          {/* <LoginAcc /> */}
-          {/* <ChgAccInfo /> */}
-          {/* <FBlogin /> */}
-          {/* <ConnectingPage /> */}
-          <SetupShopStepper />
-          {/* <CompleteSetup /> */}
+          <Routes>
+            <Route path="/" element={<LoginPage/>} />
+            <Route path="/changeaccinfo" element={<ChgAccInfoPage />} />
+            <Route path="/fblogin" element={<FBloginPage/>} />
+            <Route path="/setupshopstepperpage" element={<SetupShopStepperPage />}  />
+            <Route path="/steponepage" element={<StepOnePage/>} />
+            <Route path="/steptwopage" element={<StepTwoPage />} />
+            <Route path="/stepthreepage" element={<StepThreePage />} />
+            <Route path="/completesetuppage" element={<CompleteSetupPage />} />
+
+          </Routes>
         </StepContextProvider>
       </div>
     </ThemeProvider>
+   </BrowserRouter>
   );
 }
 

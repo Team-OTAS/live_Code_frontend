@@ -89,6 +89,22 @@
   background: white;
 }
 
+.text,.message{
+  background-color: $textheaderColor;
+  padding: 4px 8px;
+  width: 80%;
+  color:#fff;
+  border-radius: 15px 5px 15px 5px;
+  margin-top: 5px;
+}
+
+.message{
+  float: right;
+  margin-top: 20px;
+  margin-right: 5px;
+  // height :50;
+}
+
 .photoUpload{
   width: 260px;
   height: 80px;
@@ -115,4 +131,3 @@
     margin-left: 2px;
   }
 }
-

@@ -90,6 +90,21 @@
   background: white;
 }
 
+.text, .message {
+  background-color: #4d3f3f;
+  padding: 4px 8px;
+  width: 80%;
+  color: #fff;
+  border-radius: 15px 5px 15px 5px;
+  margin-top: 5px;
+}
+
+.message {
+  float: right;
+  margin-top: 20px;
+  margin-right: 5px;
+}
+
 .photoUpload {
   width: 260px;
   height: 80px;

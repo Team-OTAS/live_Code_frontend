@@ -10,7 +10,7 @@ export default function CompleteSetup() {
   const [show] = useState(true);
   return (
     <>
-      <Box sx={{ py: 0 }}>
+      <Box sx={{ py: 5 }}>
         <Grid
           container
           spacing={2}

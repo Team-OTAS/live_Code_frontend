@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { Box, Button } from "@mui/material";
 import "./../Styles/auth.css";
@@ -8,6 +8,12 @@ import SendIcon from "@mui/icons-material/Send";
 
 export default function StepTwoForm() {
   const { setStep } = useContext(MultiStepContext);
+  const [message, setMessage] = useState("");
+
+  const onChangeHandler = (event) => {
+    setMessage(event.target.value);
+  };
+  console.log(message);
   return (
     <>
       <Box>
@@ -68,11 +74,36 @@ export default function StepTwoForm() {
               rows={11}
               sx={{ width: "35ch" }}
               color="primary"
+              onChange={onChangeHandler}
+              value={message}
             />
           </form>
           <Box component="div" sx={{ display: { xs: "none", sm: "block" } }}>
             <div className="smartphone">
-              <div className="content"></div>
+              <div className="content">
+                {message ? (
+                  <div>
+                    <div className="text">
+                      <span style={{ fontSize: "12px" }}>
+                        12A လေးယူမယ်နော်အမ
+                      </span>
+                    </div>
+                    <div className="message">
+                      <TextField
+                        variant="standard"
+                        className="messageText"
+                        multiline
+                        value={message}
+                        inputProps={{
+                          style: { color: "white", fontSize: "12px" },
+                        }}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </div>
             </div>
           </Box>
         </Grid>

@@ -8,12 +8,32 @@ import SetupShopStepper from "./Components/SetupShopStepper";
 // import FBlogin from "./Components/Fblogin";
 // import CompleteSetup from "./Components/CompleteSetup";
 import StepContextProvider from "./StepContext";
+import Dashboard from "./View/Dashboard";
+import Navbar from "./Components/Navbar";
 
 const theme = createTheme({
   palette: {
     primary: {
       main: "#4d3f3f",
       contrastText: "#fff",
+    },
+    secondary: {
+      main: "#fff",
+    },
+    info: {
+      main: "#73ff1d",
+    },
+    plan: {
+      main: "#370FC8",
+      contrastText: "#fff",
+    },
+    vaild: {
+      main: "#354E8E",
+      contrastText: "fff",
+    },
+    danger: {
+      main: "#E81609",
+      contrastText: "fff",
     },
   },
 });
@@ -22,14 +42,16 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
+        <Navbar />
         <StepContextProvider>
           {/* <LoginAcc /> */}
           {/* <ChgAccInfo /> */}
           {/* <FBlogin /> */}
           {/* <ConnectingPage /> */}
-          <SetupShopStepper />
+          {/* <SetupShopStepper /> */}
           {/* <CompleteSetup /> */}
         </StepContextProvider>
+        <Dashboard />
       </div>
     </ThemeProvider>
   );

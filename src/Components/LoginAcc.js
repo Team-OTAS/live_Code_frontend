@@ -1,12 +1,10 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import LiveCodeLogo from "./../assets/images/logo.png";
-import ChangeAccInfo from "./../assets/images/change_account_info.png";
 import TextField from "@mui/material/TextField";
 import { Box, Button } from "@mui/material";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
-import Link from "@mui/material/Link";
 import "./../Styles/auth.css";
 
 export default function LoginAcc() {

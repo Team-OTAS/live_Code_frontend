@@ -1,0 +1,35 @@
+@import "./../Variables/variables.scss";
+
+.DrawContainer {
+  width: 280px;
+  height: 352px;
+  border-radius: 18px;
+  border: 1px solid $textheaderColor;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+  padding: 15px 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btnText {
+  padding-left: 10px;
+  font-family: $textFont;
+}
+
+@media (max-width: 600px) {
+  .DrawContainer {
+    width: 200px;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: auto;
+  }
+
+  .btnText {
+    padding: 0;
+    font-size: 12px;
+  }
+}

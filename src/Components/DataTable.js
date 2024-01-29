@@ -12,6 +12,7 @@ import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../redux/features/productSlice";
 import AlertBox from "./AlertBox";
+import { Link } from "react-router-dom";
 
 function CustomToolbar() {
   return (
@@ -34,26 +35,30 @@ const columns = [
     headerName: "Actions",
     width: 150,
     renderCell: (params) => (
-      <Button
-        sx={{
-          background: "#4d3f3f",
-          color: "white",
-          padding: "10px 20px",
-          borderRadius: "10px 18px 10px 18px",
-        }}
-        variant="filled"
-        onClick={() => handleButtonClick(params.row.id)}
-      >
-        <PreviewOutlinedIcon sx={{ marginRight: "5px" }} />
-        View Shop
-      </Button>
+      <Link to={`/viewstock/${params.row.id}`}>
+        <Button
+          sx={{
+            background: "#354e8f",
+            color: "white",
+            padding: "10px 20px",
+            borderRadius: "10px",
+            "&:hover": {
+              backgroundColor: "#4d3f3f",
+              color: "#fff",
+            },
+          }}
+          variant="filled"
+          onClick={() => handleButtonClick(params.row.id)}
+        >
+          <PreviewOutlinedIcon sx={{ marginRight: "5px" }} />
+          View Shop
+        </Button>
+      </Link>
     ),
   },
 ];
 
-const handleButtonClick = (id) => {
-  alert(`Clicked on ID ${id}`);
-};
+const handleButtonClick = (id) => {};
 
 const DataTable = () => {
   const dispatch = useDispatch();
@@ -72,7 +77,7 @@ const DataTable = () => {
   console.log(products);
 
   return (
-    <Box sx={{ height: { xs: 600, md: 450 }, width: "100%" }}>
+    <Box sx={{ height: { xs: 600, md: 500 }, width: "100%" }}>
       {products.loading && <div>Loading</div>}
       {!products.loading && products.products.code === 200 ? (
         <DataGrid

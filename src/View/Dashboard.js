@@ -7,6 +7,7 @@ import DataTable from "../Components/DataTable";
 import DrawerSlide from "../Components/DrawerSlide";
 import AddStock from "../Components/AddStock";
 import EditStock from "../Components/EditStock";
+import ViewStock from "../Components/ViewStock";
 
 export default function AdminDashBoard() {
   return (
@@ -22,7 +23,7 @@ export default function AdminDashBoard() {
               <Link to="/addstock">
                 <Button size="large" color="primary" variant="contained">
                   <PersonAddAlt1OutlinedIcon />
-                  <span className="btnText">Add New Shop</span>
+                  <span className="btnText">Add New Stock</span>
                 </Button>
               </Link>
             </Grid>
@@ -32,6 +33,7 @@ export default function AdminDashBoard() {
               <Route path="/addstock" element={<AddStock />} />
               <Route path="/" element={<DataTable />} />
               <Route path="/editstock" element={<EditStock />} />
+              <Route path="/viewstock/:id" element={<ViewStock />} />
             </Routes>
           </Container>
         </div>

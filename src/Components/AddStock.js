@@ -15,7 +15,6 @@ import { createProducts } from "../redux/features/productSlice";
 import { Link } from "react-router-dom";
 import SuccessBox from "./successBox";
 import AlertBox from "./AlertBox";
-import { ProductionQuantityLimits } from "@mui/icons-material";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -37,7 +36,7 @@ function AddStock() {
   const priceref = useRef();
   const quantityref = useRef();
   const descriptionref = useRef();
-  const unitref = useRef(null);
+  // const unitref = useRef(null);
 
   function hundleFileChange(e) {
     setFile(e.target.files[0]);
@@ -46,7 +45,7 @@ function AddStock() {
   function hundleSubmit(e) {
     e.preventDefault();
     const formData = {
-      shop_id: "S-00000001",
+      shop_id: "S-00000012",
       name: nameref.current.value,
       price: priceref.current.value,
       quantity: quantityref.current.value,

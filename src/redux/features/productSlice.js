@@ -11,6 +11,13 @@ export const fetchProducts = createAsyncThunk("product/fetchProducts", () => {
   return axios.get("/products").then((response) => response.data);
 });
 
+export const fetchProduct = createAsyncThunk(
+  "product/fetchProduct/:id",
+  (id) => {
+    return axios.get("/products").then((response) => response.data);
+  }
+);
+
 export const createProducts = createAsyncThunk(
   "product/createProducts",
   (productData) => {
@@ -19,7 +26,7 @@ export const createProducts = createAsyncThunk(
         headers: {
           "Content-Type": "multipart/form-data",
           "X-XSRF-TOKEN":
-            "eyJpdiI6Im9KOEpqVHhzNzhHZ0VZd2NzTmRoOGc9PSIsInZhbHVlIjoiTWUvV3hRUWNPOW5tRWJKS3VScGpRQktuT3BZLy9FdHVjbjdMMTdreGw4eHYwM1Z1MFlGekpnSVF3ckQ3cmJlS295dmdMS2tLQm40U3pEZlJ1OGZmU0R2UEsrcDArSWRKejZTY043cW1jWCt0RGt5K0lsYkZZSFJXVHFMYy9lTEYiLCJtYWMiOiI2NDMxMjM1MzUzM2M1OGE1MTIzMTAwZDI1ODA5NmUzNmI2Y2VkMjNmNDk3OGFhZGE3NWM4ZjVkZTZmYmQ2Zjc1IiwidGFnIjoiIn0%3D",
+            "eyJpdiI6ImZqendibWo2a3JmSWxreW1HMHplWUE9PSIsInZhbHVlIjoic2NKYzVpcDl0aHZtNlFrNUU2dEpRNVMyclRrc2VqdkZvMm9JSXREQXN5Tm5iUS9OVTBRRzVveVlKNS9XZmVNSHhKVm1zL3Iyd21hTm13YlIyRUJHaUp2OVBEVnVUV3lSRXR5b0pMYnZFV203cnNFTk1JWWhZbTVGZlRnUXBPL1kiLCJtYWMiOiI2ZGJiOWNiM2Q1NGNkZTA1ZjVmNDI5MzY2MzM5NzUzZGI3MTRjOTc1MTE4ZDE1Zjg3ODBjZGU2YjZhMzc4YTI3IiwidGFnIjoiIn0%3D",
         },
       })
       .then((response) => response.data);
@@ -52,7 +59,20 @@ const productSlice = createSlice({
       state.loading = false;
       state.products = [];
       state.error = action.error.message;
-      console.log(state.error);
+      console.log(action.error);
+    });
+    builder.addCase(fetchProduct.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchProduct.fulfilled, (state, action) => {
+      state.loading = false;
+      state.products = action.payload;
+      state.error = "";
+    });
+    builder.addCase(fetchProduct.rejected, (state, action) => {
+      state.loading = false;
+      state.products = [];
+      state.error = action.error.message;
     });
   },
 });

@@ -11,29 +11,39 @@ import "./../Styles/auth.css";
 import ChgAccInfoPage from "./ChgAccInfoPage";
 import { useNavigate } from "react-router-dom";
 
+import fetchXsrfToken from "../api/auth";
+
+import axios from "axios";
+// import AuthService from "../services/auth.service";
 
 export default function LoginPage() {
 
-  const [username, setUsername] = useState('');
+  const [user_name, setuser_name] = useState('');
   const [password, setPassword] = useState('');
-  const [loginsuccessful, setLoginsuccessful] = useState(false);
-
-  const handleLogin = () =>{
-    const presetUsername = 'Digital Saw';
-    const presetPassword = 'Ds1234';
-
-    if(username === presetUsername && password === presetPassword){
-        console.log("Login successful");
-        setLoginsuccessful(true);
-      }else{
-        console.log('Incorrect Username or Password');
-    }
-  };
+  const [loading, setLoading] = useState(false);
+ 
   const navigate = useNavigate();
 
-  if(loginsuccessful){
-    navigate('/changeaccinfo');
-  }
+  const handleLogin = async() =>{
+    const xsrfToken =await fetchXsrfToken();
+    console.log("XSRF Token from auth.js", xsrfToken);
+    const response = await axios.post('http://localhost:8000/api/auth/login',  {
+      user_name,
+      password,
+    }, {
+      withCredentials: true, // Send cookies for authentication
+      headers: {
+        'X-XSRF-TOKEN': xsrfToken, // Include XSRF token
+      }
+    });
+    if(response.status === 200){
+      navigate('/changeaccinfo')
+    }
+    console.log('Response for shop data', response);
+   
+  };
+
+  
 
   return (
     <>
@@ -91,12 +101,12 @@ export default function LoginPage() {
               <div className="input-field">
                 <TextField
                   id="outlined-error-helper-text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={user_name}
+                  onChange={(e) => setuser_name(e.target.value)}
                   label={
                     <div className="input-field-label">
                       <Person2OutlinedIcon color="primary" />
-                      <span>Username</span>
+                      <span>user_name</span>
                     </div>
                   }
                   color="primary"

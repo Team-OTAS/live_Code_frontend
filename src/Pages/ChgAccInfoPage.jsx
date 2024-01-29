@@ -15,7 +15,7 @@ export default function ChgAccInfoPage() {
   const navigate = useNavigate();
 
   const handleDoitLater = () =>{
-    navigate('/fblogin');
+    navigate('/setupshopstepperpage');
     console.log("navigation to fb login work");
   }
 

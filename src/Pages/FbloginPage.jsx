@@ -77,7 +77,7 @@ export default function FBloginPage() {
           </Grid>
           <Grid item xs={12}>
             <FacebookLogin
-              appId="1562998637806187"
+              appId="1361887051360574"
               size="medium"
               autoLoad={true}
               fields="name,email,picture"

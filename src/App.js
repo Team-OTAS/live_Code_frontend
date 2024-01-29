@@ -1,11 +1,11 @@
 import React from "react";
+import { useEffect } from "react";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
 import { createBrowserRouter, Route, Routes,RouterProvider,BrowserRouter } from "react-router-dom";
 
 import StepContextProvider from "./StepContext";
-
-
+import fetchXsrfToken from "./api/auth";
 import LoginPage from "./Pages/LoginPage";
 import ChgAccInfoPage from "./Pages/ChgAccInfoPage";
 import FBloginPage from "./Pages/FbloginPage";
@@ -24,7 +24,13 @@ const theme = createTheme({
   },
 });
 
-function App() {
+const App = () => {
+
+  useEffect(()=>{
+    fetchXsrfToken();
+}, []);
+
+
   return (
    <BrowserRouter>
      <ThemeProvider theme={theme}>

@@ -3,14 +3,11 @@ import Swal from "sweetalert2";
 
 const AlertBox = ({ message }) => {
   console.log(message);
-  useEffect(() => {
-    // This effect runs when the component mounts
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: message,
-    });
-  }, [message]);
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: message,
+  });
 
   return;
 };

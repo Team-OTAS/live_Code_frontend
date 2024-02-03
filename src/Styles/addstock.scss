@@ -19,10 +19,32 @@
   height: 166px;
   border-radius: 5px;
   border: 1px solid gray;
+  overflow: hidden;
+  position: relative;
+  img {
+    width: 100%;
+    height: inherit;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 }
 
 .formHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.deleteIcon {
+  color: #fff;
+  // font-size: 40px;
+}
+
+.photoEditbtn {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: $blueColor;
 }

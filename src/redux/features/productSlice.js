@@ -11,12 +11,9 @@ export const fetchProducts = createAsyncThunk("product/fetchProducts", () => {
   return axios.get("/products").then((response) => response.data);
 });
 
-export const fetchProduct = createAsyncThunk(
-  "product/fetchProduct/:id",
-  (id) => {
-    return axios.get("/products").then((response) => response.data);
-  }
-);
+export const fetchProduct = createAsyncThunk("product/fetchProduct", (id) => {
+  return axios.get(`/products/${id}`).then((response) => response.data);
+});
 
 export const createProducts = createAsyncThunk(
   "product/createProducts",

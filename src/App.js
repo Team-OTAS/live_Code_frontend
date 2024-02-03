@@ -24,16 +24,16 @@ const theme = createTheme({
       main: "#73ff1d",
     },
     plan: {
-      main: "#370FC8",
+      main: "#354e8e",
       contrastText: "#fff",
     },
     vaild: {
-      main: "#354E8E",
-      contrastText: "fff",
+      main: "#354e8e",
+      contrastText: "#fff",
     },
     danger: {
       main: "#E81609",
-      contrastText: "fff",
+      contrastText: "f#fff",
     },
   },
 });

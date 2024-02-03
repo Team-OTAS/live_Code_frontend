@@ -1,45 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Grid, TextField } from "@mui/material";
-import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
-import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
+import { Box, Grid, TextField } from "@mui/material";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import ListIcon from "@mui/icons-material/List";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../redux/features/productSlice";
 import { Link, useParams } from "react-router-dom";
 import AlertBox from "./AlertBox";
 
 import "./../Styles/addstock.css";
-
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+import Loading from "./Loading";
 
 function ViewStock() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product);
   const { id } = useParams();
-  const [file, setFile] = useState();
+  // const [file, setFile] = useState();
 
   useEffect(() => {
     dispatch(fetchProduct(id));
   }, [id]);
 
-  console.log(products.products.data[0].image || "wait for data");
+  console.log(products.products.data);
   return (
     <Box sx={{ marginTop: "20px" }}>
+      {products.loading && <Loading />}
       {!products.loading && products.products.code === 200 ? (
         <Grid
           container
@@ -52,8 +39,15 @@ function ViewStock() {
         >
           <Grid item xs={12} className="formHeader">
             <p className="header">View Stock</p>
-            <Link to="/">
+            {/* <Link to="/">
               <CancelOutlinedIcon sx={{ marginBottom: "50px" }} />
+            </Link> */}
+            <Link to={`/editstock/${id}`}>
+              <EditNoteOutlinedIcon
+                fontSize="large"
+                color="primary"
+                sx={{ marginBottom: "50px" }}
+              />
             </Link>
           </Grid>
 
@@ -72,7 +66,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data[0].name || ""}
+                value={products.products.data.name || ""}
               />
             </div>
           </Grid>
@@ -91,7 +85,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data[0].price || ""}
+                value={products.products.data.price || ""}
               />
             </div>
           </Grid>
@@ -110,7 +104,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data[0].quantity || ""}
+                value={products.products.data.quantity || ""}
               />
             </div>
           </Grid>
@@ -131,27 +125,19 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data[0].description || ""}
+                value={products.products.data.description || ""}
               />
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
             <div className="imageUpload">
-              <Box sx={{ px: 5, py: 2 }}>
-                <div className="input-field-label">
-                  <ImageOutlinedIcon color="primary" />
-                  <span>Image</span>
-                </div>
-                <Button
-                  component="label"
-                  variant="contained"
-                  startIcon={<AttachmentOutlinedIcon />}
-                  sx={{ marginTop: "10px" }}
-                >
-                  Upload Image
-                  <VisuallyHiddenInput type="file" />
-                </Button>
-              </Box>
+              <img
+                className="productimage"
+                src={`http://localhost:8000/storage/${
+                  products.products.data.image || "noimage.png"
+                }`}
+                alt="productimage"
+              />
             </div>
           </Grid>
         </Grid>

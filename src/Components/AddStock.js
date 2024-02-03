@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Box, Button, Container, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, IconButton, TextField } from "@mui/material";
 import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
@@ -8,13 +8,14 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ListIcon from "@mui/icons-material/List";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { styled } from "@mui/material/styles";
-
-import "./../Styles/addstock.css";
 import { useDispatch, useSelector } from "react-redux";
 import { createProducts } from "../redux/features/productSlice";
+import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
 import SuccessBox from "./successBox";
 import AlertBox from "./AlertBox";
+
+import "./../Styles/addstock.css";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -30,7 +31,11 @@ const VisuallyHiddenInput = styled("input")({
 
 function AddStock() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product);
+  const product = useSelector((state) => state.product);
+  const [nameErr, setnameErr] = useState(false);
+  const [priceErr, setpriceErr] = useState(false);
+  const [quantityErr, setquantityErr] = useState(false);
+  const [desErr, setdesErr] = useState(false);
   const [file, setFile] = useState();
   const nameref = useRef();
   const priceref = useRef();
@@ -44,6 +49,31 @@ function AddStock() {
 
   function hundleSubmit(e) {
     e.preventDefault();
+    if (nameref.current.value === "") {
+      setnameErr(true);
+    } else {
+      setnameErr(false);
+    }
+
+    if (priceref.current.value === "") {
+      setpriceErr(true);
+    } else {
+      setpriceErr(false);
+    }
+
+    if (quantityref.current.value === "") {
+      setquantityErr(true);
+    } else {
+      setquantityErr(false);
+    }
+
+    if (descriptionref.current.value === "") {
+      setdesErr(true);
+      return;
+    } else {
+      setdesErr(false);
+    }
+
     const formData = {
       shop_id: "S-00000012",
       name: nameref.current.value,
@@ -55,10 +85,8 @@ function AddStock() {
     };
     dispatch(createProducts(formData));
   }
-
-  console.log(products);
   return (
-    <Box sx={{ marginTop: "20px" }}>
+    <Box component="form" sx={{ marginTop: "20px" }}>
       <Grid
         container
         spacing={2}
@@ -79,6 +107,7 @@ function AddStock() {
           <div className="inputContainer">
             <TextField
               id="outlined-error-helper-text"
+              name="field1"
               fullWidth
               label={
                 <div className="input-field-label">
@@ -87,6 +116,7 @@ function AddStock() {
                 </div>
               }
               color="primary"
+              error={nameErr}
               inputRef={nameref}
             />
           </div>
@@ -103,6 +133,7 @@ function AddStock() {
                 </div>
               }
               color="primary"
+              error={priceErr}
               inputRef={priceref}
             />
           </div>
@@ -119,6 +150,7 @@ function AddStock() {
                 </div>
               }
               color="primary"
+              error={quantityErr}
               inputRef={quantityref}
             />
           </div>
@@ -136,6 +168,7 @@ function AddStock() {
               }
               multiline
               rows={6}
+              error={desErr}
               color="primary"
               inputRef={descriptionref}
             />
@@ -143,21 +176,47 @@ function AddStock() {
         </Grid>
         <Grid item xs={12} md={4}>
           <div className="imageUpload">
-            <Box sx={{ px: 5, py: 2 }}>
-              <div className="input-field-label">
-                <ImageOutlinedIcon color="primary" />
-                <span>Image</span>
-              </div>
-              <Button
-                component="label"
-                variant="contained"
-                startIcon={<AttachmentOutlinedIcon />}
-                sx={{ marginTop: "10px" }}
-              >
-                Upload Image
-                <VisuallyHiddenInput type="file" onChange={hundleFileChange} />
-              </Button>
-            </Box>
+            {file ? (
+              <Box>
+                <img src={URL.createObjectURL(file)} alt="product" />
+              </Box>
+            ) : (
+              <Box sx={{ px: 5, py: 2 }}>
+                <div className="input-field-label">
+                  <ImageOutlinedIcon color="primary" />
+                  <span>Image</span>
+                </div>
+                <Button
+                  component="label"
+                  variant="contained"
+                  color="vaild"
+                  startIcon={<AttachmentOutlinedIcon />}
+                  sx={{ marginTop: "10px" }}
+                >
+                  Upload Image
+                  <VisuallyHiddenInput
+                    type="file"
+                    onChange={hundleFileChange}
+                  />
+                </Button>
+              </Box>
+            )}
+            <IconButton
+              variant="filled"
+              sx={{
+                position: "absolute",
+                top: "5px",
+                right: "5px",
+                borderRadius: "10px",
+                background: "#354e8e",
+                color: "#fff",
+                "&:hover": {
+                  color: "#354e8e",
+                },
+              }}
+            >
+              <EditIcon />
+            </IconButton>
           </div>
         </Grid>
         <Grid item xs={12} md={4}>
@@ -165,7 +224,7 @@ function AddStock() {
             <Button
               fullWidth
               variant="contained"
-              color="primary"
+              color="vaild"
               sx={{ margin: "0" }}
               onClick={hundleSubmit}
             >
@@ -174,11 +233,11 @@ function AddStock() {
           </div>
         </Grid>
       </Grid>
-      {!products.loading && products.products.code === 201 ? (
-        <SuccessBox message={products.products.message} />
+      {!product.loading && product.products.code === 201 ? (
+        <SuccessBox message={product.products.message} />
       ) : null}
-      {!products.loading && products.error ? (
-        <AlertBox message={products.error} />
+      {!product.loading && product.error ? (
+        <AlertBox message={product.error} />
       ) : null}
     </Box>
   );

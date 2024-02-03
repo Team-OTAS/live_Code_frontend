@@ -18,6 +18,5 @@ export default async function fetchXsrfToken() {
 
 
 // "user_name": "S-00000011",
-		// "password": "lGRtToL6"
-
+// 		"password": "aKCRP4bm"
  

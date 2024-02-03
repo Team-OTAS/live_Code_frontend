@@ -5,6 +5,7 @@ import { createTheme } from "@mui/material/styles";
 import { createBrowserRouter, Route, Routes,RouterProvider,BrowserRouter } from "react-router-dom";
 
 import StepContextProvider from "./StepContext";
+
 import fetchXsrfToken from "./api/auth";
 import LoginPage from "./Pages/LoginPage";
 import ChgAccInfoPage from "./Pages/ChgAccInfoPage";
@@ -14,12 +15,31 @@ import StepOnePage from "./Pages/StepOnePage";
 import StepTwoPage from "./Pages/StepTwoPage";
 import StepThreePage from "./Pages/StepThreePage";
 import CompleteSetupPage from "./Pages/CompleteSetupPage";
+import HomePage from "./Pages/HomePage";
 
 const theme = createTheme({
   palette: {
     primary: {
       main: "#4d3f3f",
       contrastText: "#fff",
+    },
+    secondary: {
+      main: "#fff",
+    },
+    info: {
+      main: "#73ff1d",
+    },
+    plan: {
+      main: "#370FC8",
+      contrastText: "#fff",
+    },
+    vaild: {
+      main: "#354E8E",
+      contrastText: "fff",
+    },
+    danger: {
+      main: "#E81609",
+      contrastText: "fff",
     },
   },
 });
@@ -32,12 +52,14 @@ const App = () => {
 
 
   return (
-   <BrowserRouter>
+  //  <BrowserRouter>
      <ThemeProvider theme={theme}>
       <div className="App">
+        
         <StepContextProvider>
+
           <Routes>
-            <Route path="/" element={<LoginPage/>} />
+            <Route path="/login" element={<LoginPage/>} />
             <Route path="/changeaccinfo" element={<ChgAccInfoPage />} />
             <Route path="/fblogin" element={<FBloginPage/>} />
             <Route path="/setupshopstepperpage" element={<SetupShopStepperPage />}  />
@@ -45,12 +67,12 @@ const App = () => {
             <Route path="/steptwopage" element={<StepTwoPage />} />
             <Route path="/stepthreepage" element={<StepThreePage />} />
             <Route path="/completesetuppage" element={<CompleteSetupPage />} />
-
+            <Route path="*" element={<HomePage />} />
           </Routes>
         </StepContextProvider>
       </div>
     </ThemeProvider>
-   </BrowserRouter>
+  //  </BrowserRouter>
   );
 }
 

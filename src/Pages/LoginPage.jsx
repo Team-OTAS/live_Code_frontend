@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import LiveCodeLogo from "./../assets/images/logo.png";
-import ChangeAccInfo from "./../assets/images/change_account_info.png";
 import TextField from "@mui/material/TextField";
 import { Box, Button } from "@mui/material";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
-import Link from "@mui/material/Link";
 import "./../Styles/auth.css";
 import ChgAccInfoPage from "./ChgAccInfoPage";
 import { useNavigate } from "react-router-dom";
@@ -37,9 +35,14 @@ export default function LoginPage() {
       }
     });
     if(response.status === 200){
+      const authToken = response.data.data.token;
+      const shopId = response.data.data.shop_id;
+      localStorage.setItem('authToken', authToken);
+      localStorage.setItem('shopId', shopId);
       navigate('/changeaccinfo')
     }
-    console.log('Response for shop data', response);
+    console.log('Response for shop data', response.data.data.token);
+    console.log('Response for shop data', response.data.data.shop_id);
    
   };
 
@@ -106,7 +109,7 @@ export default function LoginPage() {
                   label={
                     <div className="input-field-label">
                       <Person2OutlinedIcon color="primary" />
-                      <span>user_name</span>
+                      <span>User name</span>
                     </div>
                   }
                   color="primary"

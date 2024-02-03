@@ -20,10 +20,17 @@ body {
 .dashboardContent {
   width: 75vw;
   padding: 0 20px;
+  margin-left: 50px;
 }
 
 .barContainer {
   text-align: right;
+}
+
+.toolbarContainer {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
 }
 
 .MuiDataGrid-columnHeaders .MuiCheckbox-root {
@@ -56,6 +63,7 @@ body {
   .dashboardContent {
     width: inherit;
     padding: 0;
+    margin-left: 10px;
   }
   .MuiDataGrid-root .MuiDataGrid-cell {
     font-size: 12px;

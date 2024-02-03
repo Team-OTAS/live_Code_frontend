@@ -24,7 +24,7 @@ export default function AdminDashBoard() {
     setDeleteData(data);
     DeleteData.length > 0 ? setIsDisabled(true) : setIsDisabled(false);
   };
-
+  // console.log(DeleteData);
   function deleteHandleClick() {
     const data = {
       productIds: DeleteData,

@@ -34,9 +34,10 @@ const VisuallyHiddenInput = styled("input")({
 
 function EditStock() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product);
+  const editproducts = useSelector((state) => state.product);
   const updates = useSelector((state) => state.updateproduct);
   const deletes = useSelector((state) => state.deleteproduct);
+  const [showmessage, setShowmessage] = useState(false);
   const { id } = useParams();
   const [file, setFile] = useState();
   const [name, setName] = useState();
@@ -61,6 +62,7 @@ function EditStock() {
     };
     // console.log(formData);
     dispatch(updateProduct({ id, formData }));
+    setShowmessage(true);
   }
 
   function deleteHandleClick() {
@@ -68,6 +70,7 @@ function EditStock() {
       productIds: [id * 1],
     };
     dispatch(deleteProduct(data));
+    setShowmessage(true);
   }
 
   useEffect(() => {
@@ -75,19 +78,19 @@ function EditStock() {
   }, []);
 
   useEffect(() => {
-    if (products.products.code === 200) {
-      setName(products.products.data.name);
-      setPrice(products.products.data.price);
-      setQuantity(products.products.data.quantity);
-      setDescription(products.products.data.description);
-      setFile(products.products.data.image);
+    if (editproducts.product.code === 200) {
+      setName(editproducts.product.data.name);
+      setPrice(editproducts.product.data.price);
+      setQuantity(editproducts.product.data.quantity);
+      setDescription(editproducts.product.data.description);
+      setFile(editproducts.product.data.image);
     }
-  }, [products]);
+  }, [editproducts]);
 
   return (
     <Box sx={{ marginTop: "20px" }}>
-      {products.loading && <Loading />}
-      {!products.loading && products.products.code === 200 ? (
+      {editproducts.loading && <Loading />}
+      {!editproducts.loading && editproducts.product.code === 200 ? (
         <Grid
           container
           spacing={2}
@@ -110,7 +113,7 @@ function EditStock() {
                   <InfoOutlinedIcon />
                   <span style={{ color: "white", marginLeft: "10px" }}>
                     Created:{" "}
-                    {new Date(products.products.time).toLocaleDateString()}
+                    {new Date(editproducts.product.time).toLocaleDateString()}
                   </span>
                 </div>
               }
@@ -285,13 +288,14 @@ function EditStock() {
             md={6}
             sx={{ display: { xs: "none", md: "block" } }}
           >
-            <Grid item xs={12} md={6} sx={{ float: "right" }}>
+            <Grid item xs={12} md={6}>
               <div>
                 <Button
                   fullWidth
                   variant="outlined"
                   color="vaild"
                   sx={{ margin: "0" }}
+                  onClick={deleteHandleClick}
                 >
                   Remove The Stock
                 </Button>
@@ -300,20 +304,22 @@ function EditStock() {
           </Grid>
         </Grid>
       ) : null}
-      {!updates.loading && updates.update.code === 200 ? (
+      {!updates.loading && showmessage && updates.update.code === 200 ? (
         <SuccessBox message={updates.update.message} />
       ) : null}
-      {!deletes.loading && deletes.deletes.status === "success" ? (
+      {!updates.loading && showmessage && updates.error ? (
+        <AlertBox message={updates.error} />
+      ) : null}
+      {!deletes.loading &&
+      showmessage &&
+      deletes.deletes.status === "success" ? (
         <SuccessBox message={deletes.deletes.message} />
       ) : null}
-      {!deletes.loading && deletes.error ? (
+      {!deletes.loading && showmessage && deletes.error ? (
         <AlertBox message={deletes.error} />
       ) : null}
-      {!products.loading && products.error ? (
-        <AlertBox message={products.error} />
-      ) : null}
-      {!updates.loading && updates.error ? (
-        <AlertBox message={updates.error} />
+      {!editproducts.loading && editproducts.error ? (
+        <AlertBox message={editproducts.error} />
       ) : null}
     </Box>
   );

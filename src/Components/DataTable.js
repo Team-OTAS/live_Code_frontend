@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import {
   DataGrid,
-  GridToolbar,
   GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarQuickFilter,
@@ -12,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../redux/features/productSlice";
 import AlertBox from "./AlertBox";
 import { Link } from "react-router-dom";
-import SuccessBox from "./successBox";
 import LinearProgress from "@mui/material/LinearProgress";
 import "./../Styles/dashboard.css";
 
@@ -32,8 +30,8 @@ const columns = [
     headerName: "No",
     width: 100,
   },
-  { field: "name", headerName: "Name", width: 200 },
-  { field: "description", headerName: "Description", width: 400 },
+  { field: "name", headerName: "Name", width: 150 },
+  { field: "description", headerName: "Description", width: 350 },
   { field: "price", headerName: "Price", width: 150 },
   { field: "unit", headerName: "Unit", width: 100 },
   { field: "quantity", headerName: "Quantity", width: 100 },
@@ -88,11 +86,11 @@ const DataTable = ({ sendDataToDashboard }) => {
   //   }
   // }, [products]);
 
-  const handleRowClick = (params) => {
-    // Access the clicked row data using params.row
-    console.log("Row clicked:", params.row);
-    // You can perform additional actions based on the clicked row data
-  };
+  // const handleRowClick = (params) => {
+  // Access the clicked row data using params.row
+  // console.log("Row clicked:", params.row);
+  // You can perform additional actions based on the clicked row data
+  // };
 
   return (
     <Box sx={{ height: { xs: 600, md: 500 } }}>
@@ -102,7 +100,7 @@ const DataTable = ({ sendDataToDashboard }) => {
         pageSize={12}
         checkboxSelection
         loading={products.loading}
-        disableSelectionOnClick
+        disableRowSelectionOnClick
         slots={{
           toolbar: CustomToolbar,
           loadingOverlay: LinearProgress,
@@ -113,12 +111,6 @@ const DataTable = ({ sendDataToDashboard }) => {
       />
       {!products.loading && products.error ? (
         <AlertBox message={products.error} />
-      ) : null}
-      {!deletes.loading && deletes.deletes.length > 0 ? (
-        <SuccessBox message={deletes.deletes.message} />
-      ) : null}
-      {!deletes.loading && deletes.error ? (
-        <AlertBox message={deletes.error} />
       ) : null}
     </Box>
   );

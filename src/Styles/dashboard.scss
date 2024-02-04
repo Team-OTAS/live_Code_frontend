@@ -1,0 +1,79 @@
+@import "./../Variables/variables.scss";
+
+body {
+  overflow-x: hidden;
+}
+
+.dashboardContainer {
+  width: 97vw;
+  padding: 20px;
+  display: flex;
+  // background-color: blue;
+  // justify-content: space-between;
+}
+
+.btnText {
+  padding-left: 10px;
+  font-family: $textFont;
+}
+
+.dashboardContent {
+  width: 75vw;
+  padding: 0 20px;
+  margin-left: 50px;
+  // background-color: yellow;
+}
+
+.barContainer {
+  // width: inherit;
+  // display: block;
+  text-align: right;
+}
+
+.toolbarContainer {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+}
+
+.MuiDataGrid-columnHeaders .MuiCheckbox-root {
+  border-radius: 0;
+  color: white;
+}
+
+.MuiDataGrid-columnHeaders .MuiCheckbox-root.Mui-checked {
+  color: white;
+}
+
+.MuiDataGrid-root .MuiDataGrid-cell {
+  font-size: 18px; /* Adjust the font size as needed */
+  font-family: $textFont;
+  font-weight: 600;
+}
+
+.MuiDataGrid-columnHeaders {
+  background-color: #354e8e;
+  color: white;
+  font-size: 18px; /* Adjust the font size as needed */
+  font-family: $textFont;
+}
+
+@media (max-width: 600px) {
+  .dashboardContainer {
+    width: 95vw;
+    padding: 5px;
+  }
+  .dashboardContent {
+    width: inherit;
+    padding: 0;
+    margin-left: 10px;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-cell {
+    font-size: 12px;
+  }
+
+  .MuiDataGrid-columnHeaders {
+    font-size: 12px;
+  }
+}

@@ -3,18 +3,19 @@ import { Routes, Route, Link } from "react-router-dom";
 import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
 import { Box, Button, Grid } from "@mui/material";
 import "./../Styles/dashboard.css";
-import DataTable from "../Components/DataTable";
+import DataTableCopy from "../Components/DataTableCopy";
 import DrawerSlide from "../Components/DrawerSlide";
 import AddStock from "../Components/AddStock";
 import EditStock from "../Components/EditStock";
 import ViewStock from "../Components/ViewStock";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct } from "./../redux/features/productdeleteSlice";
+import { deleteProduct } from "../redux/features/productdeleteSlice";
 import SuccessBox from "../Components/successBox";
 import AlertBox from "../Components/AlertBox";
+import ProductDetail from "./ProductDetail";
 import CreateProdcut from "../Components/CreateProdcut";
 
-export default function AdminDashBoard() {
+export default function DashboardCopy() {
   const dispatch = useDispatch();
   const deletes = useSelector((state) => state.deleteproduct);
   const [DeleteData, setDeleteData] = useState("");
@@ -71,11 +72,11 @@ export default function AdminDashBoard() {
               <Route
                 path="/"
                 element={
-                  <DataTable sendDataToDashboard={handleDataFromTable} />
+                  <DataTableCopy sendDataToDashboard={handleDataFromTable} />
                 }
               />
               <Route path="/editstock/:id" element={<EditStock />} />
-              <Route path="/viewstock/:id" element={<ViewStock />} />
+              <Route path="/viewstock/:id" element={<ProductDetail />} />
             </Routes>
           </Box>
           {!deletes.loading && deletes.deletes.status === "success" ? (

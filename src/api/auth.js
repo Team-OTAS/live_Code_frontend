@@ -10,8 +10,8 @@ export default async function fetchXsrfToken() {
       }
     );
     const xsrfToken = Cookies.get("XSRF-TOKEN");
-    console.log("XSRF TOKEN RESPONSE", response);
-    console.log("XSRF TOKEN", xsrfToken);
+    // console.log("XSRF TOKEN RESPONSE", response);
+    // console.log("XSRF TOKEN", xsrfToken);
     return xsrfToken;
   } catch (error) {
     console.error("Error fetching XSRF token:", error);

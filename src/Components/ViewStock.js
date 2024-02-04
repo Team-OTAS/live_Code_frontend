@@ -9,13 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../redux/features/productSlice";
 import { Link, useParams } from "react-router-dom";
 import AlertBox from "./AlertBox";
-
-import "./../Styles/addstock.css";
 import Loading from "./Loading";
+import "./../Styles/addstock.css";
 
 function ViewStock() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product);
+  const product = useSelector((state) => state.product);
   const { id } = useParams();
   // const [file, setFile] = useState();
 
@@ -23,11 +22,11 @@ function ViewStock() {
     dispatch(fetchProduct(id));
   }, [id]);
 
-  console.log(products.products.data);
+  // console.log(product.product.data);
   return (
     <Box sx={{ marginTop: "20px" }}>
-      {products.loading && <Loading />}
-      {!products.loading && products.products.code === 200 ? (
+      {product.loading && <Loading />}
+      {!product.loading && product.product.code === 200 ? (
         <Grid
           container
           spacing={2}
@@ -66,7 +65,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data.name || ""}
+                value={product.product.data.name || ""}
               />
             </div>
           </Grid>
@@ -85,7 +84,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data.price || ""}
+                value={product.product.data.price || ""}
               />
             </div>
           </Grid>
@@ -104,7 +103,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data.quantity || ""}
+                value={product.product.data.quantity || ""}
               />
             </div>
           </Grid>
@@ -125,7 +124,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data.description || ""}
+                value={product.product.data.description || ""}
               />
             </div>
           </Grid>
@@ -134,7 +133,7 @@ function ViewStock() {
               <img
                 className="productimage"
                 src={`http://localhost:8000/storage/${
-                  products.products.data.image || "noimage.png"
+                  product.product.data.image || "noimage.png"
                 }`}
                 alt="productimage"
               />
@@ -142,8 +141,8 @@ function ViewStock() {
           </Grid>
         </Grid>
       ) : null}
-      {!products.loading && products.error ? (
-        <AlertBox message={products.error} />
+      {!product.loading && product.error ? (
+        <AlertBox message={product.error} />
       ) : null}
     </Box>
   );

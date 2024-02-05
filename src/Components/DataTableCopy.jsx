@@ -111,6 +111,7 @@ const DataTable = ({ sendDataToDashboard }) => {
         }}
         onRowSelectionModelChange={(dataId) => {
           sendData(dataId);
+          console.log("table", dataId);
         }}
       />
       {!isLoading && isError ? <AlertBox message={message} /> : null}

@@ -36,7 +36,12 @@ const getProduct = async (id) => {
 const updateProduct = async (productData) => {
   const response = await axios.post(
     `/products/${productData.id}?_method=PUT`,
-    productData.formData
+    productData.formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
   );
   return response.data;
 };

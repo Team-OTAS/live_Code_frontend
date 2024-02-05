@@ -94,8 +94,7 @@ function CreateProdcut() {
     dispatch(createProduct(formData));
   }
 
-  console.log(product);
-  console.log("showmessage", showmessage);
+  console.log(message);
   return (
     <Box component="form" sx={{ marginTop: "20px" }}>
       <Grid
@@ -189,6 +188,27 @@ function CreateProdcut() {
           <div className="imageUpload">
             {file ? (
               <Box>
+                <IconButton
+                  component="label"
+                  variant="filled"
+                  sx={{
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    borderRadius: "10px",
+                    background: "#354e8e",
+                    color: "#fff",
+                    "&:hover": {
+                      color: "#354e8e",
+                    },
+                  }}
+                >
+                  <VisuallyHiddenInput
+                    type="file"
+                    onChange={hundleFileChange}
+                  />
+                  <EditIcon />
+                </IconButton>
                 <img src={URL.createObjectURL(file)} alt="product" />
               </Box>
             ) : (
@@ -212,22 +232,6 @@ function CreateProdcut() {
                 </Button>
               </Box>
             )}
-            <IconButton
-              variant="filled"
-              sx={{
-                position: "absolute",
-                top: "5px",
-                right: "5px",
-                borderRadius: "10px",
-                background: "#354e8e",
-                color: "#fff",
-                "&:hover": {
-                  color: "#354e8e",
-                },
-              }}
-            >
-              <EditIcon />
-            </IconButton>
           </div>
         </Grid>
         <Grid item xs={12} md={4}>
@@ -245,10 +249,12 @@ function CreateProdcut() {
         </Grid>
       </Grid>
       {isLoading && showmessage ? <WaitingBox /> : null}
-      {!isLoading && showmessage && isSuccess === 201 ? (
+      {!isLoading && showmessage && isSuccess ? (
         <SuccessBox message={message} />
       ) : null}
-      {!isLoading && isError ? <AlertBox message={message} /> : null}
+      {!isLoading && showmessage && isError ? (
+        <AlertBox message={message} />
+      ) : null}
     </Box>
   );
 }

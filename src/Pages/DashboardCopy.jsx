@@ -5,26 +5,24 @@ import { Box, Button, Grid } from "@mui/material";
 import "./../Styles/dashboard.css";
 import DataTableCopy from "../Components/DataTableCopy";
 import DrawerSlide from "../Components/DrawerSlide";
-import AddStock from "../Components/AddStock";
-import EditStock from "../Components/EditStock";
-import ViewStock from "../Components/ViewStock";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct } from "../redux/features/productdeleteSlice";
 import SuccessBox from "../Components/successBox";
 import AlertBox from "../Components/AlertBox";
 import ProductDetail from "./ProductDetail";
 import CreateProdcut from "../Components/CreateProdcut";
+import EditProduct from "../Components/EditProduct";
 
 export default function DashboardCopy() {
   const dispatch = useDispatch();
   const deletes = useSelector((state) => state.deleteproduct);
   const [DeleteData, setDeleteData] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
-  console.log(process.env.REACT_APP_API_BASE_URL);
+  // console.log(process.env.REACT_APP_API_BASE_URL);
 
   const handleDataFromTable = (data) => {
     setDeleteData(data);
-    DeleteData.length > 0 ? setIsDisabled(true) : setIsDisabled(false);
+    data.length === 0 ? setIsDisabled(true) : setIsDisabled(false);
   };
   // console.log(DeleteData);
   function deleteHandleClick() {
@@ -47,7 +45,14 @@ export default function DashboardCopy() {
           <Box>
             <Grid className="barContainer">
               <Link to="/addstock">
-                <Button size="large" color="primary" variant="contained">
+                <Button
+                  size="large"
+                  color="primary"
+                  variant="contained"
+                  onClick={() => {
+                    setDeleteData([]);
+                  }}
+                >
                   <PersonAddAlt1OutlinedIcon />
                   <span className="btnText">Add New Stock</span>
                 </Button>
@@ -75,7 +80,7 @@ export default function DashboardCopy() {
                   <DataTableCopy sendDataToDashboard={handleDataFromTable} />
                 }
               />
-              <Route path="/editstock/:id" element={<EditStock />} />
+              <Route path="/editstock/:id" element={<EditProduct />} />
               <Route path="/viewstock/:id" element={<ProductDetail />} />
             </Routes>
           </Box>

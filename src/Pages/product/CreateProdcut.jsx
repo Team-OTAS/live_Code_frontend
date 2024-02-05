@@ -1,5 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Box, Button, Grid, IconButton, TextField } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { createProduct } from "../../redux/features/productReducer";
 import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
@@ -7,17 +11,12 @@ import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ListIcon from "@mui/icons-material/List";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { styled } from "@mui/material/styles";
-import { useDispatch, useSelector } from "react-redux";
-// import { createProducts } from "../redux/features/productSlice";
+import SuccessBox from "../../Components/modalBox/successBox";
+import AlertBox from "../../Components/modalBox/AlertBox";
 import EditIcon from "@mui/icons-material/Edit";
-import { Link } from "react-router-dom";
-import SuccessBox from "./successBox";
-import AlertBox from "./AlertBox";
+import WaitingBox from "../../Components/modalBox/Waiting";
 
-import "./../Styles/addstock.css";
-import { createProduct } from "../redux/features/productReducer";
-import WaitingBox from "./Waiting";
+import "./../../Styles/addstock.css";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",

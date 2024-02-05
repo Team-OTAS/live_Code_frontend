@@ -11,14 +11,14 @@ import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import AlertBox from "./AlertBox";
-import { updateProduct, getProduct } from "../redux/features/productReducer";
-import SuccessBox from "./successBox";
-import Loading from "./Loading";
+import AlertBox from "../../Components/modalBox/AlertBox";
+import { updateProduct, getProduct } from "../../redux/features/productReducer";
+import SuccessBox from "../../Components/modalBox/successBox";
+import Loading from "../../Components/Loading";
 import EditIcon from "@mui/icons-material/Edit";
-import { deleteProduct } from "../redux/features/productdeleteSlice";
+import { deleteProduct } from "../../redux/features/productdeleteSlice";
 
-import "./../Styles/addstock.css";
+import "./../../Styles/addstock.css";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",

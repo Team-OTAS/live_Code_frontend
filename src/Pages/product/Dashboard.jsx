@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
 import { Box, Button, Grid } from "@mui/material";
-import "./../Styles/dashboard.css";
-import DataTableCopy from "../Components/DataTableCopy";
-import DrawerSlide from "../Components/DrawerSlide";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct } from "../redux/features/productdeleteSlice";
-import SuccessBox from "../Components/successBox";
-import AlertBox from "../Components/AlertBox";
+import { deleteProduct } from "../../redux/features/productdeleteSlice";
+import DataTable from "../../Components/product/DataTable";
+import DrawerSlide from "../../Components/DrawerSlide";
+import SuccessBox from "../../Components/modalBox/successBox";
+import AlertBox from "../../Components/modalBox/AlertBox";
 import ProductDetail from "./ProductDetail";
-import CreateProdcut from "../Components/CreateProdcut";
-import EditProduct from "../Components/EditProduct";
+import CreateProdcut from "./CreateProdcut";
+import EditProduct from "./EditProduct";
+import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
 
-export default function DashboardCopy() {
+import "./../../Styles/dashboard.css";
+
+export default function Dashboard() {
   const dispatch = useDispatch();
   const deletes = useSelector((state) => state.deleteproduct);
   const [DeleteData, setDeleteData] = useState("");
@@ -77,7 +78,7 @@ export default function DashboardCopy() {
               <Route
                 path="/"
                 element={
-                  <DataTableCopy sendDataToDashboard={handleDataFromTable} />
+                  <DataTable sendDataToDashboard={handleDataFromTable} />
                 }
               />
               <Route path="/editstock/:id" element={<EditProduct />} />

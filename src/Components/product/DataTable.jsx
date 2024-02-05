@@ -6,14 +6,14 @@ import {
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
-import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../redux/features/productSlice";
-import AlertBox from "./AlertBox";
 import { Link } from "react-router-dom";
+import { getProducts } from "../../redux/features/productReducer";
 import LinearProgress from "@mui/material/LinearProgress";
-import { getProducts } from "../redux/features/productReducer";
-import "./../Styles/dashboard.css";
+import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
+import AlertBox from "../modalBox/AlertBox";
+
+import "./../../Styles/dashboard.css";
 
 function CustomToolbar() {
   return (

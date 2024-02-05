@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Box, Grid, TextField } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getProduct } from "../../redux/features/productReducer";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import ListIcon from "@mui/icons-material/List";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProduct } from "../redux/features/productSlice";
-import { getProduct } from "../redux/features/productReducer";
-import { Link, useParams } from "react-router-dom";
-import AlertBox from "./../Components/AlertBox";
-import Loading from "./../Components/Loading";
-import "./../Styles/addstock.css";
+import AlertBox from "../../Components/modalBox/AlertBox";
+import Loading from "../../Components/Loading";
+
+import "./../../Styles/addstock.css";
 
 function ProductDetail() {
   const dispatch = useDispatch();

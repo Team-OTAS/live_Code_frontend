@@ -1,33 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Box, Grid, TextField } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getProduct } from "../../redux/features/productReducer";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import ListIcon from "@mui/icons-material/List";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProduct } from "../redux/features/productSlice";
-import { Link, useParams } from "react-router-dom";
-import AlertBox from "./AlertBox";
+import AlertBox from "../../Components/modalBox/AlertBox";
+import Loading from "../../Components/Loading";
 
-import "./../Styles/addstock.css";
-import Loading from "./Loading";
+import "./../../Styles/addstock.css";
 
-function ViewStock() {
+function ProductDetail() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product);
   const { id } = useParams();
-  // const [file, setFile] = useState();
+
+  const { product, isLoading, isError, message } = useSelector(
+    (state) => state.stocks
+  );
 
   useEffect(() => {
-    dispatch(fetchProduct(id));
-  }, [id]);
+    dispatch(getProduct(id));
+  }, [isError, message, dispatch]);
 
-  console.log(products.products.data);
+    // console.log(product.data);
   return (
     <Box sx={{ marginTop: "20px" }}>
-      {products.loading && <Loading />}
-      {!products.loading && products.products.code === 200 ? (
+      {isLoading && <Loading />}
+      {!isLoading && product ? (
         <Grid
           container
           spacing={2}
@@ -39,9 +41,6 @@ function ViewStock() {
         >
           <Grid item xs={12} className="formHeader">
             <p className="header">View Stock</p>
-            {/* <Link to="/">
-              <CancelOutlinedIcon sx={{ marginBottom: "50px" }} />
-            </Link> */}
             <Link to={`/editstock/${id}`}>
               <EditNoteOutlinedIcon
                 fontSize="large"
@@ -66,7 +65,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data.name || ""}
+                value={product.data.name || ""}
               />
             </div>
           </Grid>
@@ -85,7 +84,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data.price || ""}
+                value={product.data.price || ""}
               />
             </div>
           </Grid>
@@ -104,7 +103,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data.quantity || ""}
+                value={product.data.quantity || ""}
               />
             </div>
           </Grid>
@@ -125,7 +124,7 @@ function ViewStock() {
                 InputProps={{
                   readOnly: true,
                 }}
-                value={products.products.data.description || ""}
+                value={product.data.description || ""}
               />
             </div>
           </Grid>
@@ -133,8 +132,8 @@ function ViewStock() {
             <div className="imageUpload">
               <img
                 className="productimage"
-                src={`http://localhost:8000/storage/${
-                  products.products.data.image || "noimage.png"
+                src={`http://128.199.246.237/live-code-api/storage/${
+                  product.data.image || "noimage.png"
                 }`}
                 alt="productimage"
               />
@@ -142,11 +141,9 @@ function ViewStock() {
           </Grid>
         </Grid>
       ) : null}
-      {!products.loading && products.error ? (
-        <AlertBox message={products.error} />
-      ) : null}
+      {!isLoading && isError ? <AlertBox message={message} /> : null}
     </Box>
   );
 }
 
-export default ViewStock;
+export default ProductDetail;

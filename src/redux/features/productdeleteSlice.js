@@ -12,7 +12,7 @@ export const deleteProduct = createAsyncThunk(
   (deleteData) => {
     console.log(deleteData);
     return axios
-      .delete("/products", {
+      .delete("/api/products", {
         data: deleteData,
       })
       .then((response) => response.data);

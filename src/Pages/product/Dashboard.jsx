@@ -1,30 +1,31 @@
 import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
 import { Box, Button, Grid } from "@mui/material";
-import "./../Styles/dashboard.css";
-import DataTable from "../Components/DataTable";
-import DrawerSlide from "../Components/DrawerSlide";
-import AddStock from "../Components/AddStock";
-import EditStock from "../Components/EditStock";
-import ViewStock from "../Components/ViewStock";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct } from "./../redux/features/productdeleteSlice";
-import SuccessBox from "../Components/successBox";
-import AlertBox from "../Components/AlertBox";
+import { deleteProduct } from "../../redux/features/productdeleteSlice";
+import DataTable from "../../Components/product/DataTable";
+import DrawerSlide from "../../Components/DrawerSlide";
+import SuccessBox from "../../Components/modalBox/successBox";
+import AlertBox from "../../Components/modalBox/AlertBox";
+import ProductDetail from "./ProductDetail";
+import CreateProdcut from "./CreateProdcut";
+import EditProduct from "./EditProduct";
+import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
 
-export default function AdminDashBoard() {
+import "./../../Styles/dashboard.css";
+
+export default function Dashboard() {
   const dispatch = useDispatch();
   const deletes = useSelector((state) => state.deleteproduct);
   const [DeleteData, setDeleteData] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
-  console.log(process.env.REACT_APP_API_BASE_URL);
+  // console.log(process.env.REACT_APP_API_BASE_URL);
 
   const handleDataFromTable = (data) => {
     setDeleteData(data);
-    DeleteData.length > 0 ? setIsDisabled(true) : setIsDisabled(false);
+    data.length === 0 ? setIsDisabled(true) : setIsDisabled(false);
   };
-
+  // console.log(DeleteData);
   function deleteHandleClick() {
     const data = {
       productIds: DeleteData,
@@ -45,7 +46,14 @@ export default function AdminDashBoard() {
           <Box>
             <Grid className="barContainer">
               <Link to="/addstock">
-                <Button size="large" color="primary" variant="contained">
+                <Button
+                  size="large"
+                  color="primary"
+                  variant="contained"
+                  onClick={() => {
+                    setDeleteData([]);
+                  }}
+                >
                   <PersonAddAlt1OutlinedIcon />
                   <span className="btnText">Add New Stock</span>
                 </Button>
@@ -66,15 +74,15 @@ export default function AdminDashBoard() {
           {/* content area  */}
           <Box>
             <Routes>
-              <Route path="/addstock" element={<AddStock />} />
+              <Route path="/addstock" element={<CreateProdcut />} />
               <Route
                 path="/"
                 element={
                   <DataTable sendDataToDashboard={handleDataFromTable} />
                 }
               />
-              <Route path="/editstock/:id" element={<EditStock />} />
-              <Route path="/viewstock/:id" element={<ViewStock />} />
+              <Route path="/editstock/:id" element={<EditProduct />} />
+              <Route path="/viewstock/:id" element={<ProductDetail />} />
             </Routes>
           </Box>
           {!deletes.loading && deletes.deletes.status === "success" ? (

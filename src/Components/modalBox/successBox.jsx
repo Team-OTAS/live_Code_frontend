@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 function SuccessBox({ message }) {
   const navigate = useNavigate();
-  // console.log(message);
+  console.log(message);
   useEffect(() => {
     let timerInterval;
     Swal.fire({
@@ -15,8 +15,10 @@ function SuccessBox({ message }) {
       willClose: () => {
         clearInterval(timerInterval);
       },
-    }).then(() => {
-      navigate("/");
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        navigate("/");
+      }
     });
   }, [message]);
 

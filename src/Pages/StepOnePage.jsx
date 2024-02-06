@@ -33,7 +33,7 @@ export default function StepOnePage() {
   const handleOnclick = () =>{
     console.log("Shop Update Data", shopData);
     dispatch(updateShops({ shopData }))
-    setStep("2")
+    setStep("2");
   }
 
   
@@ -104,7 +104,8 @@ export default function StepOnePage() {
             }}
           >
             {/* Update TextField components with unique IDs */}
-            <TextField
+           <div className="input-field">
+           <TextField
               id="shopName"
               label={
                 <div className="input-field-label">
@@ -117,6 +118,8 @@ export default function StepOnePage() {
               value={shopData.shopName}
               onChange={handleInputChange("shopName")}
             />
+           </div>
+            <div className="input-field">
             <TextField
               id="email"
               label={
@@ -130,6 +133,8 @@ export default function StepOnePage() {
               value={shopData.email}
               onChange={handleInputChange("email")}
             />
+            </div>
+            <div className="input-field">
             <TextField
               id="phone"
               label={
@@ -143,7 +148,9 @@ export default function StepOnePage() {
               value={shopData.phone}
               onChange={handleInputChange("phone")}
             />
-            <TextField
+            </div>
+           <div className="input-field">
+           <TextField
               id="address"
               label={
                 <div className="input-field-label">
@@ -156,6 +163,7 @@ export default function StepOnePage() {
               value={shopData.address}
               onChange={handleInputChange("address")}
             />
+           </div>
           </Box>
         </Grid>
         {/* ---------Form End  --------------------------------------------------------*/}

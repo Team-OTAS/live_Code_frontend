@@ -1,5 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Box, Button, Grid, IconButton, TextField } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { createProduct } from "../../redux/features/productReducer";
 import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
@@ -7,15 +11,12 @@ import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ListIcon from "@mui/icons-material/List";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { styled } from "@mui/material/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { createProducts } from "../redux/features/productSlice";
+import SuccessBox from "../../Components/modalBox/successBox";
+import AlertBox from "../../Components/modalBox/AlertBox";
 import EditIcon from "@mui/icons-material/Edit";
-import { Link } from "react-router-dom";
-import SuccessBox from "./successBox";
-import AlertBox from "./AlertBox";
+import WaitingBox from "../../Components/modalBox/Waiting";
 
-import "./../Styles/addstock.css";
+import "./../../Styles/addstock.css";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -29,19 +30,22 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-function AddStock() {
+function CreateProdcut() {
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.product);
+  const { product, isLoading, isError, message, isSuccess } = useSelector(
+    (state) => state.stocks
+  );
   const [nameErr, setnameErr] = useState(false);
   const [priceErr, setpriceErr] = useState(false);
   const [quantityErr, setquantityErr] = useState(false);
   const [desErr, setdesErr] = useState(false);
   const [file, setFile] = useState();
+  const [showmessage, setShowmessage] = useState(false);
   const nameref = useRef();
   const priceref = useRef();
   const quantityref = useRef();
   const descriptionref = useRef();
-  const shopId = localStorage.getItem('shopId');
+  const shopId = localStorage.getItem("shopId");
   // const unitref = useRef(null);
 
   function hundleFileChange(e) {
@@ -84,8 +88,12 @@ function AddStock() {
       unit: "1",
       image: file,
     };
-    dispatch(createProducts(formData));
+    setShowmessage(true);
+    console.log(file);
+    dispatch(createProduct(formData));
   }
+
+  console.log(message);
   return (
     <Box component="form" sx={{ marginTop: "20px" }}>
       <Grid
@@ -179,6 +187,27 @@ function AddStock() {
           <div className="imageUpload">
             {file ? (
               <Box>
+                <IconButton
+                  component="label"
+                  variant="filled"
+                  sx={{
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    borderRadius: "10px",
+                    background: "#354e8e",
+                    color: "#fff",
+                    "&:hover": {
+                      color: "#354e8e",
+                    },
+                  }}
+                >
+                  <VisuallyHiddenInput
+                    type="file"
+                    onChange={hundleFileChange}
+                  />
+                  <EditIcon />
+                </IconButton>
                 <img src={URL.createObjectURL(file)} alt="product" />
               </Box>
             ) : (
@@ -202,22 +231,6 @@ function AddStock() {
                 </Button>
               </Box>
             )}
-            <IconButton
-              variant="filled"
-              sx={{
-                position: "absolute",
-                top: "5px",
-                right: "5px",
-                borderRadius: "10px",
-                background: "#354e8e",
-                color: "#fff",
-                "&:hover": {
-                  color: "#354e8e",
-                },
-              }}
-            >
-              <EditIcon />
-            </IconButton>
           </div>
         </Grid>
         <Grid item xs={12} md={4}>
@@ -234,14 +247,15 @@ function AddStock() {
           </div>
         </Grid>
       </Grid>
-      {!product.loading && product.products.code === 201 ? (
-        <SuccessBox message={product.products.message} />
+      {isLoading && showmessage ? <WaitingBox /> : null}
+      {!isLoading && showmessage && isSuccess ? (
+        <SuccessBox message={message} />
       ) : null}
-      {!product.loading && product.error ? (
-        <AlertBox message={product.error} />
+      {!isLoading && showmessage && isError ? (
+        <AlertBox message={message} />
       ) : null}
     </Box>
   );
 }
 
-export default AddStock;
+export default CreateProdcut;

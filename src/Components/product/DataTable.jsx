@@ -1,20 +1,19 @@
 import React, { useEffect } from "react";
 import {
   DataGrid,
-  GridToolbar,
   GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
-import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../redux/features/productSlice";
-import AlertBox from "./AlertBox";
 import { Link } from "react-router-dom";
-import SuccessBox from "./successBox";
+import { getProducts } from "../../redux/features/productReducer";
 import LinearProgress from "@mui/material/LinearProgress";
-import "./../Styles/dashboard.css";
+import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
+import AlertBox from "../modalBox/AlertBox";
+
+import "./../../Styles/dashboard.css";
 
 function CustomToolbar() {
   return (
@@ -32,9 +31,9 @@ const columns = [
     headerName: "No",
     width: 100,
   },
-  { field: "name", headerName: "Name", width: 200 },
-  { field: "description", headerName: "Description", width: 400 },
-  { field: "price", headerName: "Price", width: 150 },
+  { field: "name", headerName: "Name", width: 100 },
+  { field: "description", headerName: "Description", width: 200 },
+  { field: "price", headerName: "Price", width: 100 },
   { field: "unit", headerName: "Unit", width: 100 },
   { field: "quantity", headerName: "Quantity", width: 100 },
   {
@@ -49,6 +48,7 @@ const columns = [
             color: "white",
             padding: "10px 20px",
             borderRadius: "10px",
+            fontSize:'14px',
             "&:hover": {
               backgroundColor: "#4d3f3f",
               color: "#fff",
@@ -66,7 +66,9 @@ const columns = [
 
 const DataTable = ({ sendDataToDashboard }) => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product);
+  const { products, isLoading, isError, message } = useSelector(
+    (state) => state.stocks
+  );
   const deletes = useSelector((state) => state.deleteproduct);
   const sendData = (dataId) => {
     const Deletedata = dataId;
@@ -74,10 +76,11 @@ const DataTable = ({ sendDataToDashboard }) => {
   };
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(getProducts());
   }, [deletes.deletes]);
 
-  // useEffect(() => {
+  // console.log(products);
+
   //   if (products.products.code === 200) {
   //     console.log(products.products.data);
   //     const rows = products.products.data.map((index, item) => ({
@@ -88,38 +91,31 @@ const DataTable = ({ sendDataToDashboard }) => {
   //   }
   // }, [products]);
 
-  const handleRowClick = (params) => {
-    // Access the clicked row data using params.row
-    console.log("Row clicked:", params.row);
-    // You can perform additional actions based on the clicked row data
-  };
+  // const handleRowClick = (params) => {
+  // Access the clicked row data using params.row
+  // console.log("Row clicked:", params.row);
+  // You can perform additional actions based on the clicked row data
+  // };
 
   return (
     <Box sx={{ height: { xs: 600, md: 500 } }}>
       <DataGrid
-        rows={products.products.data || []}
+        rows={products.data || []}
         columns={columns}
         pageSize={12}
         checkboxSelection
-        loading={products.loading}
-        disableSelectionOnClick
+        loading={isLoading}
+        disableRowSelectionOnClick
         slots={{
           toolbar: CustomToolbar,
           loadingOverlay: LinearProgress,
         }}
         onRowSelectionModelChange={(dataId) => {
           sendData(dataId);
+          console.log("table", dataId);
         }}
       />
-      {!products.loading && products.error ? (
-        <AlertBox message={products.error} />
-      ) : null}
-      {!deletes.loading && deletes.deletes.length > 0 ? (
-        <SuccessBox message={deletes.deletes.message} />
-      ) : null}
-      {!deletes.loading && deletes.error ? (
-        <AlertBox message={deletes.error} />
-      ) : null}
+      {!isLoading && isError ? <AlertBox message={message} /> : null}
     </Box>
   );
 };

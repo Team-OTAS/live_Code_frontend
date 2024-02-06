@@ -21,6 +21,14 @@ const initialState = {
     //     .then((response) => response.data);
     }
   );
+
+  export const updateReplyMessage = createAsyncThunk(
+    "shopupdate/updateReplyMessage",
+    (message, {getState}) =>{
+      const {shopData} = getState()
+      console.log("Shop Reply Message from Redux Store", )
+    }
+  )
   
   const shopUpdateSlice = createSlice({
     name: "shopupdate",

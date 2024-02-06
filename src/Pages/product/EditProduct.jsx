@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Chip, Container, Grid, TextField } from "@mui/material";
+import { Box, Button, Chip, Grid, IconButton, TextField } from "@mui/material";
 import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
@@ -10,15 +10,15 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchProduct } from "../redux/features/productSlice";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import AlertBox from "./AlertBox";
-import { updateProduct } from "../redux/features/productupdateSlice";
-import SuccessBox from "./successBox";
-import Loading from "./Loading";
-import { deleteProduct } from "./../redux/features/productdeleteSlice";
+import AlertBox from "../../Components/modalBox/AlertBox";
+import { updateProduct, getProduct } from "../../redux/features/productReducer";
+import SuccessBox from "../../Components/modalBox/successBox";
+import Loading from "../../Components/Loading";
+import EditIcon from "@mui/icons-material/Edit";
+import { deleteProduct } from "../../redux/features/productdeleteSlice";
 
-import "./../Styles/addstock.css";
+import "./../../Styles/addstock.css";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -32,11 +32,15 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-function EditStock() {
+function EditProduct() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product);
-  const updates = useSelector((state) => state.updateproduct);
+
   const deletes = useSelector((state) => state.deleteproduct);
+  const { product, isLoading, isError, message, isSuccess } = useSelector(
+    (state) => state.stocks
+  );
+  const [showmessage, setShowmessage] = useState(false);
+  const [local, setlocal] = useState(false);
   const { id } = useParams();
   const [file, setFile] = useState();
   const [name, setName] = useState();
@@ -46,12 +50,14 @@ function EditStock() {
 
   function hundleFileChange(e) {
     setFile(e.target.files[0]);
+    setlocal(true);
   }
 
   function hundleSubmit(e) {
     e.preventDefault();
+    const shopId = localStorage.getItem('shopId');
     const formData = {
-      shop_id: "S-00000012",
+      shop_id: shopId,
       name: name,
       price: price,
       quantity: quantity,
@@ -61,6 +67,7 @@ function EditStock() {
     };
     // console.log(formData);
     dispatch(updateProduct({ id, formData }));
+    setShowmessage(true);
   }
 
   function deleteHandleClick() {
@@ -68,26 +75,29 @@ function EditStock() {
       productIds: [id * 1],
     };
     dispatch(deleteProduct(data));
+    setShowmessage(true);
   }
 
   useEffect(() => {
-    dispatch(fetchProduct(id));
+    dispatch(getProduct(id));
   }, []);
 
   useEffect(() => {
-    if (products.products.code === 200) {
-      setName(products.products.data.name);
-      setPrice(products.products.data.price);
-      setQuantity(products.products.data.quantity);
-      setDescription(products.products.data.description);
-      setFile(products.products.data.image);
+    if (product) {
+      setName(product.data.name);
+      setPrice(product.data.price);
+      setQuantity(product.data.quantity);
+      setDescription(product.data.description);
+      setFile(product.data.image);
     }
-  }, [products]);
+  }, [product]);
+
+  console.log(product);
 
   return (
     <Box sx={{ marginTop: "20px" }}>
-      {products.loading && <Loading />}
-      {!products.loading && products.products.code === 200 ? (
+      {isLoading && <Loading />}
+      {!isLoading && product ? (
         <Grid
           container
           spacing={2}
@@ -109,8 +119,7 @@ function EditStock() {
                 <div className="input-field-label">
                   <InfoOutlinedIcon />
                   <span style={{ color: "white", marginLeft: "10px" }}>
-                    Created:{" "}
-                    {new Date(products.products.time).toLocaleDateString()}
+                    Created: {new Date(product.time).toLocaleDateString()}
                   </span>
                 </div>
               }
@@ -228,30 +237,63 @@ function EditStock() {
           </Grid>
           <Grid item xs={12} md={4}>
             <div className="imageUpload">
-              {/* <img
-                className="productimage"
-                src="http://localhost:8000/storage/products/1706673788Screenshot%20from%202024-01-26%2009-46-51.png"
-                alt="productimage"
-              /> */}
-              <Box sx={{ px: 5, py: 2 }}>
-                <div className="input-field-label">
-                  <ImageOutlinedIcon color="primary" />
-                  <span>Image</span>
-                </div>
-                <Button
-                  component="label"
-                  variant="contained"
-                  color="vaild"
-                  startIcon={<AttachmentOutlinedIcon />}
-                  sx={{ marginTop: "10px" }}
-                >
-                  Upload Image
-                  <VisuallyHiddenInput
-                    type="file"
-                    onChange={hundleFileChange}
-                  />
-                </Button>
-              </Box>
+              {file ? (
+                <Box>
+                  <IconButton
+                    component="label"
+                    variant="filled"
+                    sx={{
+                      position: "absolute",
+                      top: "5px",
+                      right: "5px",
+                      borderRadius: "10px",
+                      background: "#354e8e",
+                      color: "#fff",
+                      "&:hover": {
+                        color: "#354e8e",
+                      },
+                    }}
+                  >
+                    <VisuallyHiddenInput
+                      type="file"
+                      onChange={hundleFileChange}
+                    />
+
+                    <EditIcon />
+                  </IconButton>
+                  {local ? (
+                    <img src={URL.createObjectURL(file)} alt="product" />
+                  ) : (
+                    <img
+                      className="productimage"
+                      src={`http://128.199.246.237/live-code-api/storage/${
+                        product.data.image || "noimage.png"
+                      }`}
+                      alt="productimage"
+                    />
+                  )}
+                </Box>
+              ) : (
+                <Box sx={{ px: 5, py: 2 }}>
+                  <div className="input-field-label">
+                    <ImageOutlinedIcon color="primary" />
+                    <span>Image</span>
+                  </div>
+                  <Button
+                    component="label"
+                    variant="contained"
+                    color="vaild"
+                    startIcon={<AttachmentOutlinedIcon />}
+                    sx={{ marginTop: "10px" }}
+                  >
+                    Upload Image
+                    <VisuallyHiddenInput
+                      type="file"
+                      onChange={hundleFileChange}
+                    />
+                  </Button>
+                </Box>
+              )}
             </div>
           </Grid>
           <Grid item xs={12} md={3}>
@@ -285,13 +327,14 @@ function EditStock() {
             md={6}
             sx={{ display: { xs: "none", md: "block" } }}
           >
-            <Grid item xs={12} md={6} sx={{ float: "right" }}>
+            <Grid item xs={12} md={6}>
               <div>
                 <Button
                   fullWidth
                   variant="outlined"
                   color="vaild"
                   sx={{ margin: "0" }}
+                  onClick={deleteHandleClick}
                 >
                   Remove The Stock
                 </Button>
@@ -300,23 +343,22 @@ function EditStock() {
           </Grid>
         </Grid>
       ) : null}
-      {!updates.loading && updates.update.code === 200 ? (
-        <SuccessBox message={updates.update.message} />
+      {!isLoading && showmessage && isSuccess ? (
+        <SuccessBox message={message} />
       ) : null}
-      {!deletes.loading && deletes.deletes.status === "success" ? (
+      {!isLoading && showmessage && isError ? (
+        <AlertBox message={message} />
+      ) : null}
+      {!deletes.loading &&
+      showmessage &&
+      deletes.deletes.status === "success" ? (
         <SuccessBox message={deletes.deletes.message} />
       ) : null}
-      {!deletes.loading && deletes.error ? (
+      {!deletes.loading && showmessage && deletes.error ? (
         <AlertBox message={deletes.error} />
-      ) : null}
-      {!products.loading && products.error ? (
-        <AlertBox message={products.error} />
-      ) : null}
-      {!updates.loading && updates.error ? (
-        <AlertBox message={updates.error} />
       ) : null}
     </Box>
   );
 }
 
-export default EditStock;
+export default EditProduct;

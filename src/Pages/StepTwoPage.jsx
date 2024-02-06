@@ -5,16 +5,24 @@ import "./../Styles/auth.css";
 import { MultiStepContext } from "../StepContext";
 import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
+import { useDispatch } from "react-redux";
+import { updateReplyMessage } from "../redux/features/shopUpdateSlice";
 
 export default function StepTwoPage() {
   const { setStep } = useContext(MultiStepContext);
  
-  
+  const dispatch = useDispatch();
   const [message, setMessage] = useState("");
 
   const onChangeHandler = (event) => {
     setMessage(event.target.value);
   };
+
+  const handleOnclick = () =>{
+    console.log("Setup Reply Message", message);
+    dispatch(updateReplyMessage({message}))
+    setStep("3")
+  }
   console.log(message);
   return (
     <>
@@ -56,6 +64,7 @@ export default function StepTwoPage() {
         </Grid>
         <Grid
           item
+          
           xs={12}
           style={{
             display: "flex",
@@ -113,7 +122,7 @@ export default function StepTwoPage() {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setStep("3")}
+            onClick={handleOnclick}
             sx={{ marginTop: "5px" }}
           >
             Continue The Set Up

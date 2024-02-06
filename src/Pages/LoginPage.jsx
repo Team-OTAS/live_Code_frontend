@@ -25,7 +25,7 @@ export default function LoginPage() {
   const handleLogin = async() =>{
     const xsrfToken =await fetchXsrfToken();
     console.log("XSRF Token from auth.js", xsrfToken);
-    const response = await axios.post('http://localhost:8000/api/auth/login',  {
+    const response = await axios.post('/api/auth/login',  {
       user_name,
       password,
     }, {

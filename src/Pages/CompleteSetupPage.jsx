@@ -5,9 +5,15 @@ import CompleteSticker from "./../assets/images/Completed-bro.png";
 import { Box, Button } from "@mui/material";
 import "./../Styles/auth.css";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function CompleteSetupPage() {
   const [show] = useState(true);
+  const navigate = useNavigate();
+  const clickHandler = () =>{
+    console.log("Finish Register");
+    navigate('/');
+  }
   return (
     <>
       <Box sx={{ py: 5 }}>
@@ -87,7 +93,7 @@ export default function CompleteSetupPage() {
           {/* ---------Sticker End -------------------------------------------------------- */}
           {/* ---------Button Start --------------------------------------------------------*/}
           <Grid item xs={2}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={clickHandler}>
               Go to Admin Dashboard
             </Button>
           </Grid>

@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 export default async function fetchXsrfToken() {
   try {
-    const response = await axios.get('http://localhost:8000/sanctum/csrf-cookie', {
+    const response = await axios.get('/sanctum/csrf-cookie', {
         withCredentials: true
     });
     const xsrfToken = Cookies.get('XSRF-TOKEN');
@@ -17,6 +17,10 @@ export default async function fetchXsrfToken() {
 }
 
 
-// "user_name": "S-00000011",
-// 		"password": "aKCRP4bm"
+
+
+
+
+// /	"user_name": "S-00000011",
+// "password": "LTmISLdz"
  

@@ -2,16 +2,36 @@
 
 .DrawContainer {
   width: 280px;
-  height: 352px;
+  height: 510px;
   border-radius: 18px;
-  border: 1px solid $textheaderColor;
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+  border: 3px solid $textheaderColor;
+  // box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.8);
   padding: 15px 0;
 
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
   flex-direction: column;
+}
+
+.slidebtn {
+  margin-bottom: 20px;
+  width: 250px;
+  padding: 15px 5px;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: $buttonColor;
+  border: 3px solid $buttonColor;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slidebtn.active {
+  background: $buttonColor;
+  color: #fff;
 }
 
 .btnText {

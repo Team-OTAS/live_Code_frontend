@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
-import { createBrowserRouter, Route, Routes,RouterProvider,BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import StepContextProvider from "./StepContext";
 
@@ -45,35 +45,31 @@ const theme = createTheme({
 });
 
 const App = () => {
-
-  useEffect(()=>{
+  useEffect(() => {
     fetchXsrfToken();
-}, []);
-
+  }, []);
 
   return (
-  //  <BrowserRouter>
-     <ThemeProvider theme={theme}>
+    //  <BrowserRouter>
+    <ThemeProvider theme={theme}>
       <div className="App">
-        
         <StepContextProvider>
-
           <Routes>
-            <Route path="/login" element={<LoginPage/>} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/changeaccinfo" element={<ChgAccInfoPage />} />
-            <Route path="/fblogin" element={<FBloginPage/>} />
-            <Route path="/setupshopstepperpage" element={<SetupShopStepperPage />}  />
-            <Route path="/steponepage" element={<StepOnePage/>} />
-            <Route path="/steptwopage" element={<StepTwoPage />} />
-            <Route path="/stepthreepage" element={<StepThreePage />} />
+            <Route path="/fblogin" element={<FBloginPage />} />
+            <Route
+              path="/setupshopstepperpage"
+              element={<SetupShopStepperPage />}
+            />
             <Route path="/completesetuppage" element={<CompleteSetupPage />} />
             <Route path="*" element={<HomePage />} />
           </Routes>
         </StepContextProvider>
       </div>
     </ThemeProvider>
-  //  </BrowserRouter>
+    //  </BrowserRouter>
   );
-}
+};
 
 export default App;

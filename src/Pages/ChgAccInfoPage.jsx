@@ -104,6 +104,19 @@ export default function ChgAccInfoPage() {
                   size="small"
                 />
               </div>
+              <div className="input-field">
+                <TextField
+                  id="outlined-error-helper-text"
+                  label={
+                    <div className="input-field-label">
+                      <PasswordOutlinedIcon color="primary" />
+                      <span>Confirm Password</span>
+                    </div>
+                  }
+                  color="primary"
+                  size="small"
+                />
+              </div>
             </Box>
           </Grid>
           {/* ---------Form End  --------------------------------------------------------*/}

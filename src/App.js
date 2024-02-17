@@ -46,9 +46,9 @@ const theme = createTheme({
 
 const App = () => {
 
-  useEffect(()=>{
-    fetchXsrfToken();
-}, []);
+//   useEffect(()=>{
+//     fetchXsrfToken();
+// }, []);
 
 
   return (

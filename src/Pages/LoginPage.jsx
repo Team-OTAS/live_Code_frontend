@@ -34,13 +34,16 @@ export default function LoginPage() {
     if(response.status === 200){
       const authToken = response.data.data.token;
       const shopId = response.data.data.shop_id;
+      const id = response.data.data.id;
+      localStorage.setItem('id',id);
       localStorage.setItem('authToken', authToken);
       localStorage.setItem('shopId', shopId);
+    console.log('Shop id response', id);
+
       navigate('/changeaccinfo')
     }
     console.log('Response for shop data', response.data.data.token);
     console.log('Response for shop data', response.data.data.shop_id);
-   
   };
 
   

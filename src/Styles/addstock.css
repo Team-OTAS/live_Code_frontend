@@ -17,10 +17,13 @@
 }
 
 .imageUpload {
-  height: 166px;
+  height: 50px;
   border-radius: 5px;
   border: 1px solid gray;
   overflow: hidden;
+  margin: auto;
+  display: flex;
+  align-items: center;
   position: relative;
 }
 .imageUpload img {
@@ -29,6 +32,12 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+.imageUpload .imageName {
+  font-family: Poppins;
+  padding: 5px;
+  width: 85%;
+  font-size: 14px;
 }
 
 .formHeader {

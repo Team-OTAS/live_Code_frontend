@@ -55,7 +55,7 @@ function EditProduct() {
 
   function hundleSubmit(e) {
     e.preventDefault();
-    const shopId = localStorage.getItem('shopId');
+    const shopId = localStorage.getItem("shopId");
     const formData = {
       shop_id: shopId,
       name: name,
@@ -206,6 +206,40 @@ function EditProduct() {
                 fullWidth
                 label={
                   <div className="input-field-label">
+                    <Inventory2OutlinedIcon color="primary" />
+                    <span>Live Sale Code</span>
+                  </div>
+                }
+                color="primary"
+                value={name || ""}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <div className="inputContainer">
+              <TextField
+                id="outlined-error-helper-text"
+                fullWidth
+                label={
+                  <div className="input-field-label">
+                    <Inventory2OutlinedIcon color="primary" />
+                    <span>Unit</span>
+                  </div>
+                }
+                color="primary"
+                value={name || ""}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <div className="inputContainer">
+              <TextField
+                id="outlined-error-helper-text"
+                fullWidth
+                label={
+                  <div className="input-field-label">
                     <ListIcon color="primary" />
                     <span>Quantity</span>
                   </div>
@@ -213,25 +247,6 @@ function EditProduct() {
                 color="primary"
                 value={quantity || ""}
                 onChange={(e) => setQuantity(e.target.value)}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <div className="inputContainer">
-              <TextField
-                id="outlined-multiline-static"
-                fullWidth
-                label={
-                  <div className="input-field-label">
-                    <DescriptionIcon color="primary" />
-                    <span>Description</span>
-                  </div>
-                }
-                multiline
-                rows={6}
-                color="primary"
-                value={description || ""}
-                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
           </Grid>
@@ -296,6 +311,26 @@ function EditProduct() {
               )}
             </div>
           </Grid>
+          <Grid item xs={12}>
+            <div className="inputContainer">
+              <TextField
+                id="outlined-multiline-static"
+                fullWidth
+                label={
+                  <div className="input-field-label">
+                    <DescriptionIcon color="primary" />
+                    <span>Description</span>
+                  </div>
+                }
+                multiline
+                rows={6}
+                color="primary"
+                value={description || ""}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+          </Grid>
+
           <Grid item xs={12} md={3}>
             <div>
               <Button

@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createProduct } from "../../redux/features/productReducer";
-import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
@@ -32,7 +32,7 @@ const VisuallyHiddenInput = styled("input")({
 
 function CreateProdcut() {
   const dispatch = useDispatch();
-  const { product, isLoading, isError, message, isSuccess } = useSelector(
+  const { isLoading, isError, message, isSuccess } = useSelector(
     (state) => state.stocks
   );
   const [nameErr, setnameErr] = useState(false);
@@ -164,22 +164,37 @@ function CreateProdcut() {
             />
           </div>
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={4}>
           <div className="inputContainer">
             <TextField
-              id="outlined-multiline-static"
+              id="outlined-error-helper-text"
               fullWidth
               label={
                 <div className="input-field-label">
-                  <DescriptionIcon color="primary" />
-                  <span>Description</span>
+                  <Inventory2OutlinedIcon color="primary" />
+                  <span>Live Sale Code</span>
                 </div>
               }
-              multiline
-              rows={6}
-              error={desErr}
               color="primary"
-              inputRef={descriptionref}
+              error={quantityErr}
+              inputRef={quantityref}
+            />
+          </div>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <div className="inputContainer">
+            <TextField
+              id="outlined-error-helper-text"
+              fullWidth
+              label={
+                <div className="input-field-label">
+                  <Inventory2OutlinedIcon color="primary" />
+                  <span>Unit</span>
+                </div>
+              }
+              color="primary"
+              error={quantityErr}
+              inputRef={quantityref}
             />
           </div>
         </Grid>
@@ -208,10 +223,19 @@ function CreateProdcut() {
                   />
                   <EditIcon />
                 </IconButton>
-                <img src={URL.createObjectURL(file)} alt="product" />
+                <p className="imageName">{file.name}</p>
+                {/* <img src={URL.createObjectURL(file)} alt="product" /> */}
               </Box>
             ) : (
-              <Box sx={{ px: 5, py: 2 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  height: "80%",
+                  padding: "5px",
+                }}
+              >
                 <div className="input-field-label">
                   <ImageOutlinedIcon color="primary" />
                   <span>Image</span>
@@ -220,10 +244,9 @@ function CreateProdcut() {
                   component="label"
                   variant="contained"
                   color="vaild"
-                  startIcon={<AttachmentOutlinedIcon />}
-                  sx={{ marginTop: "10px" }}
+                  // startIcon={}
                 >
-                  Upload Image
+                  <AttachFileIcon />
                   <VisuallyHiddenInput
                     type="file"
                     onChange={hundleFileChange}
@@ -233,6 +256,26 @@ function CreateProdcut() {
             )}
           </div>
         </Grid>
+        <Grid item xs={12}>
+          <div className="inputContainer">
+            <TextField
+              id="outlined-multiline-static"
+              fullWidth
+              label={
+                <div className="input-field-label">
+                  <DescriptionIcon color="primary" />
+                  <span>Description</span>
+                </div>
+              }
+              multiline
+              rows={6}
+              error={desErr}
+              color="primary"
+              inputRef={descriptionref}
+            />
+          </div>
+        </Grid>
+        {/* button */}
         <Grid item xs={12} md={4}>
           <div>
             <Button

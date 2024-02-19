@@ -18,7 +18,9 @@ function HomePage() {
 
   return (
     <div>
-      <Navbar title={navtitle} />
+      <Box>
+        <Navbar title={navtitle} />
+      </Box>
       <div className="dashboardContainer">
         <Box component="div" sx={{ display: { xs: "none", md: "block" } }}>
           <DrawerSlide Title={getTitle} />

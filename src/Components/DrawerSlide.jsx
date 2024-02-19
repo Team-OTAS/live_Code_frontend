@@ -1,4 +1,5 @@
-import { Button } from "@mui/material";
+import LiveCodeLogo from "./../assets/images/logo.png";
+import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import React from "react";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import { NavLink } from "react-router-dom";
@@ -15,6 +16,10 @@ export default function DrawerSlide({ Title }) {
 
   return (
     <div className="DrawContainer">
+      {/* <Box sx={{ display: { xs: "none", md: "block" }, marginBottom: "50px" }}>
+        <img src={LiveCodeLogo} alt="LiveCodeLogo" />
+      </Box> */}
+
       <NavLink
         to="/"
         className={({ isActive }) =>
@@ -33,7 +38,7 @@ export default function DrawerSlide({ Title }) {
         }
         onClick={() => changeTitle(navTitle[1])}
       >
-        <ManageAccountsOutlinedIcon />
+        <StorefrontOutlinedIcon />
         <span className="btnText">{navTitle[1]}</span>
       </NavLink>
     </div>

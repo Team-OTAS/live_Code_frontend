@@ -7,9 +7,13 @@ function LiveSale() {
   return (
     <div>
       <Box>
-        <Grid sx={{ padding: "0 10px" }}>
-          <LiveDataTable />
-          {/* <FbLive /> */}
+        <Grid container sx={{ padding: "0 3px" }}>
+          <Grid item xs={12} md={9}>
+            <LiveDataTable />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <FbLive />
+          </Grid>
         </Grid>
       </Box>
     </div>

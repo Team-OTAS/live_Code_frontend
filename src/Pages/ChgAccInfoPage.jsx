@@ -33,7 +33,8 @@ export default function ChgAccInfoPage() {
     })
     console.log('id', id);
     console.log('Change User Info func work');
-    console.log('Updated User Infos', user_name, password, password_confirmation);
+    console.log('Updated User Infos', user_name, password, password_confirmation
+    );
   }
 
   return (

@@ -17,6 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import WaitingBox from "../../Components/modalBox/Waiting";
 
 import "./../../Styles/addstock.css";
+import { RemoveFromQueue } from "@mui/icons-material";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -45,8 +46,9 @@ function CreateProdcut() {
   const priceref = useRef();
   const quantityref = useRef();
   const descriptionref = useRef();
+  const liveSaleref = useRef();
+  const unitref = useRef(null);
   const shopId = localStorage.getItem("shopId");
-  // const unitref = useRef(null);
 
   function hundleFileChange(e) {
     setFile(e.target.files[0]);
@@ -54,30 +56,30 @@ function CreateProdcut() {
 
   function hundleSubmit(e) {
     e.preventDefault();
-    if (nameref.current.value === "") {
-      setnameErr(true);
-    } else {
-      setnameErr(false);
-    }
+    // if (nameref.current.value === "") {
+    //   setnameErr(true);
+    // } else {
+    //   setnameErr(false);
+    // }
 
-    if (priceref.current.value === "") {
-      setpriceErr(true);
-    } else {
-      setpriceErr(false);
-    }
+    // if (priceref.current.value === "") {
+    //   setpriceErr(true);
+    // } else {
+    //   setpriceErr(false);
+    // }
 
-    if (quantityref.current.value === "") {
-      setquantityErr(true);
-    } else {
-      setquantityErr(false);
-    }
+    // if (quantityref.current.value === "") {
+    //   setquantityErr(true);
+    // } else {
+    //   setquantityErr(false);
+    // }
 
-    if (descriptionref.current.value === "") {
-      setdesErr(true);
-      return;
-    } else {
-      setdesErr(false);
-    }
+    // if (descriptionref.current.value === "") {
+    //   setdesErr(true);
+    //   return;
+    // } else {
+    //   setdesErr(false);
+    // }
 
     const formData = {
       shop_id: shopId,
@@ -85,15 +87,17 @@ function CreateProdcut() {
       price: priceref.current.value,
       quantity: quantityref.current.value,
       description: descriptionref.current.value,
-      unit: "1",
+      sale_code: liveSaleref.current.value,
+      unit: unitref.current.value,
       image: file,
     };
     setShowmessage(true);
-    console.log(file);
+    // console.log("success", isSuccess);
+    // console.log(formData);
     dispatch(createProduct(formData));
   }
 
-  console.log(message);
+  // console.log(isSuccess);
   return (
     <Box component="form" sx={{ marginTop: "20px" }}>
       <Grid
@@ -176,8 +180,8 @@ function CreateProdcut() {
                 </div>
               }
               color="primary"
-              error={quantityErr}
-              inputRef={quantityref}
+              // error={quantityErr}
+              inputRef={liveSaleref}
             />
           </div>
         </Grid>
@@ -193,8 +197,8 @@ function CreateProdcut() {
                 </div>
               }
               color="primary"
-              error={quantityErr}
-              inputRef={quantityref}
+              // error={quantityErr}
+              inputRef={unitref}
             />
           </div>
         </Grid>

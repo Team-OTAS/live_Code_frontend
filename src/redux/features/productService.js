@@ -1,5 +1,5 @@
 // import axios from "./../../api/axios";
-import axios from './../../api/axios';
+import axios from "./../../api/axios";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -18,7 +18,8 @@ const createProduct = async (formData) => {
 // Get all products
 const getProducts = async () => {
   const response = await axios.get("/api/products");
-  return response.data;
+  // console.log(response.data.data.original);
+  return response.data.data.original;
 };
 
 // Delete a Product

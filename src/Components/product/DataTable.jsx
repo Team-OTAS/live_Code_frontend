@@ -48,7 +48,7 @@ const columns = [
             color: "white",
             padding: "10px 20px",
             borderRadius: "10px",
-            fontSize:'14px',
+            fontSize: "14px",
             "&:hover": {
               backgroundColor: "#4d3f3f",
               color: "#fff",
@@ -79,7 +79,7 @@ const DataTable = ({ sendDataToDashboard }) => {
     dispatch(getProducts());
   }, [deletes.deletes]);
 
-  // console.log(products);
+  // console.log(products.data);
 
   //   if (products.products.code === 200) {
   //     console.log(products.products.data);

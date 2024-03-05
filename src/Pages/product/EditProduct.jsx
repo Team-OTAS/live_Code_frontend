@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Chip, Grid, IconButton, TextField } from "@mui/material";
-import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
@@ -277,11 +277,11 @@ function EditProduct() {
                     <EditIcon />
                   </IconButton>
                   {local ? (
-                    <img src={URL.createObjectURL(file)} alt="product" />
+                    <p className="imageName">{file.name}</p>
                   ) : (
                     <img
                       className="productimage"
-                      src={`http://128.199.246.237/live-code-api/storage/${
+                      src={`https://api.livecodemm.com/storage/${
                         product.data.image || "noimage.png"
                       }`}
                       alt="productimage"
@@ -289,7 +289,15 @@ function EditProduct() {
                   )}
                 </Box>
               ) : (
-                <Box sx={{ px: 5, py: 2 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    height: "80%",
+                    padding: "5px",
+                  }}
+                >
                   <div className="input-field-label">
                     <ImageOutlinedIcon color="primary" />
                     <span>Image</span>
@@ -298,10 +306,9 @@ function EditProduct() {
                     component="label"
                     variant="contained"
                     color="vaild"
-                    startIcon={<AttachmentOutlinedIcon />}
-                    sx={{ marginTop: "10px" }}
+                    // startIcon={}
                   >
-                    Upload Image
+                    <AttachFileIcon />
                     <VisuallyHiddenInput
                       type="file"
                       onChange={hundleFileChange}

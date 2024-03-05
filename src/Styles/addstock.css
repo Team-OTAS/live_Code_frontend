@@ -26,13 +26,6 @@
   align-items: center;
   position: relative;
 }
-.imageUpload img {
-  width: 100%;
-  height: inherit;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
 .imageUpload .imageName {
   font-family: Poppins;
   padding: 5px;

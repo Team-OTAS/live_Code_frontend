@@ -1,7 +1,8 @@
 import LiveCodeLogo from "./../assets/images/logo.png";
-import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import React from "react";
+import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { NavLink } from "react-router-dom";
 
 import "./../Styles/drawer.css";
@@ -49,7 +50,7 @@ export default function DrawerSlide({ Title }) {
         }
         onClick={() => changeTitle(navTitle[2])}
       >
-        <StorefrontOutlinedIcon />
+        <ShoppingCartOutlinedIcon />
         <span className="btnText">{navTitle[2]}</span>
       </NavLink>
     </div>

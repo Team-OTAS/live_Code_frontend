@@ -119,7 +119,8 @@ function EditProduct() {
                 <div className="input-field-label">
                   <InfoOutlinedIcon />
                   <span style={{ color: "white", marginLeft: "10px" }}>
-                    Created: {new Date(product.time).toLocaleDateString()}
+                    Created:{" "}
+                    {new Date(product.data.created_at).toLocaleDateString()}
                   </span>
                 </div>
               }
@@ -137,7 +138,8 @@ function EditProduct() {
                 <div className="input-field-label">
                   <InfoOutlinedIcon />
                   <span style={{ color: "white", marginLeft: "10px" }}>
-                    Updated : 2 / 4 /2024{" "}
+                    Updated :{" "}
+                    {new Date(product.data.updated_at).toLocaleDateString()}
                   </span>
                 </div>
               }

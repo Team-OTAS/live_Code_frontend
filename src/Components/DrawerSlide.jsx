@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import "./../Styles/drawer.css";
 
 export default function DrawerSlide({ Title }) {
-  const navTitle = ["Stock Management", "Live Sale"];
+  const navTitle = ["Stock Management", "Live Sale", "Order Management"];
 
   function changeTitle(title) {
     console.log(title);
@@ -40,6 +40,17 @@ export default function DrawerSlide({ Title }) {
       >
         <StorefrontOutlinedIcon />
         <span className="btnText">{navTitle[1]}</span>
+      </NavLink>
+
+      <NavLink
+        to="/order"
+        className={({ isActive }) =>
+          isActive ? "slidebtn active" : "slidebtn"
+        }
+        onClick={() => changeTitle(navTitle[2])}
+      >
+        <StorefrontOutlinedIcon />
+        <span className="btnText">{navTitle[2]}</span>
       </NavLink>
     </div>
   );

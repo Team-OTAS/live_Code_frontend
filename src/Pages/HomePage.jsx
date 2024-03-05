@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import LiveSale from "./liveSale/LiveSale";
 import DrawerSlide from "../Components/DrawerSlide";
 import { Box } from "@mui/material";
+import OrderPage from "./order/OrderPage";
 // import { Route,Routes,BrowserRouter,RouterProvider } from 'react-router-dom'
 
 function HomePage() {
@@ -28,6 +29,7 @@ function HomePage() {
         <Routes>
           <Route path="*" element={<Dashboard />} />
           <Route path="/live" element={<LiveSale />} />
+          <Route path="/order" element={<OrderPage />} />
         </Routes>
       </div>
     </div>

@@ -4,7 +4,7 @@ import LiveCodeLogo from "./../assets/images/logo.png";
 import FBloginPhoto from "./../assets/images/FBlogin.png";
 import { Box } from "@mui/material";
 import "./../Styles/auth.css";
-// import FacebookLogin from "react-facebook-login";
+
 import { useNavigate } from "react-router-dom";
 
 export default function FBloginPage() {
@@ -74,17 +74,7 @@ export default function FBloginPage() {
               </p>
             </Box>
           </Grid>
-          {/* <Grid item xs={12}>
-            <FacebookLogin
-              appId="1361887051360574"
-              size="medium"
-              autoLoad={true}
-              fields="name,email,picture"
-              onClick={componentClicked}
-              scope="public_profile,pages_show_list,pages_read_engagement"
-              callback={responseFacebook}
-            />
-          </Grid> */}
+         
         </Grid>
       </Box>
     </>

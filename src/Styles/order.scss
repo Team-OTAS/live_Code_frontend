@@ -1,0 +1,15 @@
+@import "./../Variables/variables.scss";
+
+.filterContainer {
+}
+
+.filterButton {
+  background-color: #fff;
+  color: #000;
+  font-family: $textFont;
+  margin-right: 15px;
+}
+
+.filterButton:hover {
+  color: #fff;
+}

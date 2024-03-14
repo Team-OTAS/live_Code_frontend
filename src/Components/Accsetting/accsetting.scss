@@ -1,0 +1,63 @@
+@import "./../../Variables//variables.scss";
+
+.settingBtnContainer {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  // background-color: red;
+  float: right;
+}
+
+.settingbtn {
+  // width: 250px;
+  padding: 15px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: $buttonColor;
+  border: 3px solid $buttonColor;
+  margin-left: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.settingbtn:hover {
+  transform: scale(0.95);
+}
+
+.settingbtn.active {
+  background: $buttonColor;
+  color: #fff;
+}
+
+.settingText {
+  //   padding-left: 10px;
+  font-family: $textFont;
+}
+
+.adduser {
+  background-color: #fff;
+  display: flex;
+  padding: 10px 15px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  // border-color: ;
+}
+
+.adduser span {
+  font-family: $textFont;
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: 100px;
+}
+
+.adduserIcon {
+  background: black;
+  color: #fff;
+  border-radius: 50%;
+  padding: 5px;
+}

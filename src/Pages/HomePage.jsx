@@ -6,6 +6,7 @@ import LiveSale from "./liveSale/LiveSale";
 import DrawerSlide from "../Components/DrawerSlide";
 import { Box } from "@mui/material";
 import OrderPage from "./order/OrderPage";
+import Accsetting from "../Components/Accsetting/Accsetting";
 // import { Route,Routes,BrowserRouter,RouterProvider } from 'react-router-dom'
 
 function HomePage() {
@@ -30,6 +31,7 @@ function HomePage() {
           <Route path="*" element={<Dashboard />} />
           <Route path="/live" element={<LiveSale />} />
           <Route path="/order" element={<OrderPage />} />
+          <Route path="/setting" element={<Accsetting />} />
         </Routes>
       </div>
     </div>

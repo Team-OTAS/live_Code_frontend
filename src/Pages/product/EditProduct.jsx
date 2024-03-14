@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Chip, Grid, IconButton, TextField } from "@mui/material";
-import AttachmentOutlinedIcon from "@mui/icons-material/AttachmentOutlined";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
@@ -55,7 +55,7 @@ function EditProduct() {
 
   function hundleSubmit(e) {
     e.preventDefault();
-    const shopId = localStorage.getItem('shopId');
+    const shopId = localStorage.getItem("shopId");
     const formData = {
       shop_id: shopId,
       name: name,
@@ -119,7 +119,8 @@ function EditProduct() {
                 <div className="input-field-label">
                   <InfoOutlinedIcon />
                   <span style={{ color: "white", marginLeft: "10px" }}>
-                    Created: {new Date(product.time).toLocaleDateString()}
+                    Created:{" "}
+                    {new Date(product.data.created_at).toLocaleDateString()}
                   </span>
                 </div>
               }
@@ -137,7 +138,8 @@ function EditProduct() {
                 <div className="input-field-label">
                   <InfoOutlinedIcon />
                   <span style={{ color: "white", marginLeft: "10px" }}>
-                    Updated : 2 / 4 /2024{" "}
+                    Updated :{" "}
+                    {new Date(product.data.updated_at).toLocaleDateString()}
                   </span>
                 </div>
               }
@@ -206,6 +208,40 @@ function EditProduct() {
                 fullWidth
                 label={
                   <div className="input-field-label">
+                    <Inventory2OutlinedIcon color="primary" />
+                    <span>Live Sale Code</span>
+                  </div>
+                }
+                color="primary"
+                value={name || ""}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <div className="inputContainer">
+              <TextField
+                id="outlined-error-helper-text"
+                fullWidth
+                label={
+                  <div className="input-field-label">
+                    <Inventory2OutlinedIcon color="primary" />
+                    <span>Unit</span>
+                  </div>
+                }
+                color="primary"
+                value={name || ""}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <div className="inputContainer">
+              <TextField
+                id="outlined-error-helper-text"
+                fullWidth
+                label={
+                  <div className="input-field-label">
                     <ListIcon color="primary" />
                     <span>Quantity</span>
                   </div>
@@ -213,25 +249,6 @@ function EditProduct() {
                 color="primary"
                 value={quantity || ""}
                 onChange={(e) => setQuantity(e.target.value)}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <div className="inputContainer">
-              <TextField
-                id="outlined-multiline-static"
-                fullWidth
-                label={
-                  <div className="input-field-label">
-                    <DescriptionIcon color="primary" />
-                    <span>Description</span>
-                  </div>
-                }
-                multiline
-                rows={6}
-                color="primary"
-                value={description || ""}
-                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
           </Grid>
@@ -262,11 +279,11 @@ function EditProduct() {
                     <EditIcon />
                   </IconButton>
                   {local ? (
-                    <img src={URL.createObjectURL(file)} alt="product" />
+                    <p className="imageName">{file.name}</p>
                   ) : (
                     <img
                       className="productimage"
-                      src={`http://128.199.246.237/live-code-api/storage/${
+                      src={`https://api.livecodemm.com/storage/${
                         product.data.image || "noimage.png"
                       }`}
                       alt="productimage"
@@ -274,7 +291,15 @@ function EditProduct() {
                   )}
                 </Box>
               ) : (
-                <Box sx={{ px: 5, py: 2 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    height: "80%",
+                    padding: "5px",
+                  }}
+                >
                   <div className="input-field-label">
                     <ImageOutlinedIcon color="primary" />
                     <span>Image</span>
@@ -283,10 +308,9 @@ function EditProduct() {
                     component="label"
                     variant="contained"
                     color="vaild"
-                    startIcon={<AttachmentOutlinedIcon />}
-                    sx={{ marginTop: "10px" }}
+                    // startIcon={}
                   >
-                    Upload Image
+                    <AttachFileIcon />
                     <VisuallyHiddenInput
                       type="file"
                       onChange={hundleFileChange}
@@ -296,6 +320,26 @@ function EditProduct() {
               )}
             </div>
           </Grid>
+          <Grid item xs={12}>
+            <div className="inputContainer">
+              <TextField
+                id="outlined-multiline-static"
+                fullWidth
+                label={
+                  <div className="input-field-label">
+                    <DescriptionIcon color="primary" />
+                    <span>Description</span>
+                  </div>
+                }
+                multiline
+                rows={6}
+                color="primary"
+                value={description || ""}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+          </Grid>
+
           <Grid item xs={12} md={3}>
             <div>
               <Button

@@ -25,7 +25,7 @@ export const createProduct = createAsyncThunk(
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
-        error.message ||
+        error.message || // import axios from "./../../api/axios";
         error.toString();
       console.log(message);
       return thunkAPI.rejectWithValue(message);

@@ -25,7 +25,7 @@ function ProductDetail() {
     dispatch(getProduct(id));
   }, [isError, message, dispatch]);
 
-    // console.log(product.data);
+  console.log(product || null);
   return (
     <Box sx={{ marginTop: "20px" }}>
       {isLoading && <Loading />}
@@ -95,6 +95,38 @@ function ProductDetail() {
                 fullWidth
                 label={
                   <div className="input-field-label">
+                    <Inventory2OutlinedIcon color="primary" />
+                    <span>Live Sale Code</span>
+                  </div>
+                }
+                color="primary"
+                value={product.data.sale_code || ""}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <div className="inputContainer">
+              <TextField
+                id="outlined-error-helper-text"
+                fullWidth
+                label={
+                  <div className="input-field-label">
+                    <Inventory2OutlinedIcon color="primary" />
+                    <span>Unit</span>
+                  </div>
+                }
+                color="primary"
+                value={product.data.unit || ""}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <div className="inputContainer">
+              <TextField
+                id="outlined-error-helper-text"
+                fullWidth
+                label={
+                  <div className="input-field-label">
                     <ListIcon color="primary" />
                     <span>Quantity</span>
                   </div>
@@ -107,7 +139,21 @@ function ProductDetail() {
               />
             </div>
           </Grid>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={4}>
+            <div className="imageUpload">
+              {product.data.image ? (
+                <img
+                  className="productimage"
+                  src={`https://api.livecodemm.com/storage/${product.data.image}`}
+                  alt="productimage"
+                />
+              ) : (
+                // <p style={{ paddingLeft: "10px" }}>{image}}</p>
+                <p style={{ paddingLeft: "10px" }}>No Image</p>
+              )}
+            </div>
+          </Grid>
+          <Grid item xs={12} md={12}>
             <div className="inputContainer">
               <TextField
                 id="outlined-multiline-static"
@@ -125,17 +171,6 @@ function ProductDetail() {
                   readOnly: true,
                 }}
                 value={product.data.description || ""}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <div className="imageUpload">
-              <img
-                className="productimage"
-                src={`http://128.199.246.237/live-code-api/storage/${
-                  product.data.image || "noimage.png"
-                }`}
-                alt="productimage"
               />
             </div>
           </Grid>

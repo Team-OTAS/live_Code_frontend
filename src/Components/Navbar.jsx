@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -18,8 +18,14 @@ import DrawerSlide from "./DrawerSlide";
 const drawerWidth = 240;
 
 export default function Navbar(props) {
-  const { window } = props;
+  console.log(props);
+  const [navtitle, setNavtitle] = useState("");
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  function getTitle(title) {
+    console.log("nav", title);
+    setNavtitle(title);
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -31,12 +37,9 @@ export default function Navbar(props) {
         LiveCode
       </Typography>
       <Divider />
-      <DrawerSlide />
+      <DrawerSlide Title={getTitle} />
     </Box>
   );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -56,7 +59,7 @@ export default function Navbar(props) {
           </Box>
 
           <Typography component="div" sx={{ flexGrow: 1 }}>
-            <p className="navTitle">Stock Management</p>
+            <p className="navTitle">{navtitle || props.title}</p>
           </Typography>
 
           <Stack
@@ -86,7 +89,7 @@ export default function Navbar(props) {
       </AppBar>
       <nav>
         <Drawer
-          container={container}
+          // container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}

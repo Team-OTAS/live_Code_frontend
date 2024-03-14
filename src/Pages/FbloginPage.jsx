@@ -4,7 +4,7 @@ import LiveCodeLogo from "./../assets/images/logo.png";
 import FBloginPhoto from "./../assets/images/FBlogin.png";
 import { Box } from "@mui/material";
 import "./../Styles/auth.css";
-import FacebookLogin from "react-facebook-login";
+// import FacebookLogin from "react-facebook-login";
 import { useNavigate } from "react-router-dom";
 
 export default function FBloginPage() {
@@ -14,11 +14,10 @@ export default function FBloginPage() {
   const navigate = useNavigate();
   const responseFacebook = (response) => {
     console.log(response.accessToken);
-    if(response.accessToken){
-      console.log('Facebook Access Token is get');
-      navigate('/setupshopstepperpage');
+    if (response.accessToken) {
+      console.log("Facebook Access Token is get");
+      navigate("/setupshopstepperpage");
     }
-    
   };
   return (
     <>
@@ -75,7 +74,7 @@ export default function FBloginPage() {
               </p>
             </Box>
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <FacebookLogin
               appId="1361887051360574"
               size="medium"
@@ -85,7 +84,7 @@ export default function FBloginPage() {
               scope="public_profile,pages_show_list,pages_read_engagement"
               callback={responseFacebook}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Box>
     </>

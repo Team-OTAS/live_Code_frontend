@@ -52,7 +52,7 @@ body {
 }
 
 .MuiDataGrid-columnHeaders {
-  background-color: #354e8e;
+  background-color: black;
   color: white;
   font-size: 18px; /* Adjust the font size as needed */
   font-family: $textFont;
@@ -64,9 +64,14 @@ body {
     padding: 5px;
   }
   .dashboardContent {
-    width: inherit;
+    width: 90vw;
     padding: 0;
     margin-left: 10px;
+  }
+
+  .toolbarContainer {
+    display: block;
+    height: 80px;
   }
 
   .MuiDataGrid-root .MuiDataGrid-cell {

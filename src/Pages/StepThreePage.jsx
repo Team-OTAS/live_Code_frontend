@@ -9,6 +9,10 @@ import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import { useNavigate } from "react-router-dom";
 
+
+import { useState } from "react";
+
+
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -22,9 +26,33 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function StepThreePage() {
-
+  const [logoImage, setLogoImage] = useState(null);
+  const [receipt, setReceipt] = useState({
+    receipt_header: "",
+    receipt_footer : ""
+  });
   const navigate = useNavigate();
+
+  // Function to handle changes in form fields
+  const handleInputChange = (field) => (event) => {
+    setReceipt({
+      ...receipt,
+      [field]: event.target.value,
+    });
+    console.log("Receipt", receipt);
+  };
+
+  const handleLogoImageChange = (event) =>{
+    const file = event.target.files[0];
+    setLogoImage(file);
+
+    console.log("Logo Image Data:", file);
+  }
+
   const handleCompleteSetup = () =>{
+   
+
+    
     navigate('/completesetuppage');
   }
 
@@ -93,7 +121,10 @@ export default function StepThreePage() {
                 sx={{ marginTop: "10px" }}
               >
                 Upload Image
-                <VisuallyHiddenInput type="file" />
+                <VisuallyHiddenInput 
+                type="file"
+                onChange={handleLogoImageChange}
+                 />
               </Button>
             </div>
             <TextField
@@ -108,6 +139,8 @@ export default function StepThreePage() {
               rows={5}
               sx={{ width: "38ch", marginY: "20px" }}
               color="primary"
+              value = {receipt.receipt_header}
+              onChange={handleInputChange("receipt_header")}
             />
             <TextField
               id="outlined-multiline-static"
@@ -121,6 +154,8 @@ export default function StepThreePage() {
               rows={5}
               sx={{ width: "38ch" }}
               color="primary"
+              value = {receipt.receipt_footer}
+              onChange={handleInputChange("receipt_footer")}
             />
           </form>
           <Box component="div" sx={{ display: { xs: "none", sm: "block" } }}>

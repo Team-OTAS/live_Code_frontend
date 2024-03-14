@@ -1,51 +1,21 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../../api/axios";
+// import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    loading: false,
-    shopData: [],
-    error: "",
-  };
+// const initialState = {
+//   basicInfo: {},
+//   autoReply: {},
+//   voucherFormat: {}
+// };
 
-  export const updateShops = createAsyncThunk(
-    "shopupdate/updateShops",
-    (shopData) => {
+// const updateShopSlice = createSlice({
+//   name: 'updateShop',
+//   initialState,
+//   reducers: {
+//     setBasicInfo: (state, action) =>{
+//       state.basicInfo = action.payload;
+//     },
+    
+//   }
+// })
 
-        console.log("Shop Data from Redux Store", shopData);
-    //   return axios
-    //     .post(`/products/${productData.id}?_method=PUT`, productData.formData, {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //          },
-    //     })
-    //     .then((response) => response.data);
-    }
-  );
-
-  export const updateReplyMessage = createAsyncThunk(
-    "shopupdate/updateReplyMessage",
-    (message, {getState}) =>{
-      const {shopData} = getState()
-      console.log("Shop Reply Message from Redux Store", )
-    }
-  )
-  
-  const shopUpdateSlice = createSlice({
-    name: "shopupdate",
-    initialState,
-    extraReducers: (builder) => {
-      builder.addCase(updateShops.fulfilled, (state, action) => {
-        state.loading = false;
-        state.update = action.payload;
-        state.error = "";
-      });
-      builder.addCase(updateShops.rejected, (state, action) => {
-        state.loading = false;
-        state.update = [];
-        state.error = action.error.message;
-      });
-    },
-  });
-  
-  export default shopUpdateSlice.reducer;
-  
+// Username: S-00000191
+// Password: HTJgAU1Y

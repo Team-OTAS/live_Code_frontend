@@ -11,19 +11,21 @@ import { updateReplyMessage } from "../redux/features/shopUpdateSlice";
 export default function StepTwoPage() {
   const { setStep } = useContext(MultiStepContext);
  
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [message, setMessage] = useState("");
 
   const onChangeHandler = (event) => {
     setMessage(event.target.value);
   };
 
+  
+
   const handleOnclick = () =>{
     console.log("Setup Reply Message", message);
-    dispatch(updateReplyMessage({message}))
+    localStorage.setItem('replyVoucher', message);
     setStep("3")
   }
-  console.log(message);
+  
   return (
     <>
       <Box>

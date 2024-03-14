@@ -57,13 +57,13 @@ const App = () => {
 
           <Routes>
             <Route path="/login" element={<LoginPage/>} />
-            {/* <Route path="/changeaccinfo" element={<ChgAccInfoPage />} />
+            <Route path="/changeaccinfo" element={<ChgAccInfoPage />} />
             <Route path="/fblogin" element={<FBloginPage/>} />
             <Route path="/setupshopstepperpage" element={<SetupShopStepperPage />}  />
             <Route path="/steponepage" element={<StepOnePage/>} />
             <Route path="/steptwopage" element={<StepTwoPage />} />
             <Route path="/stepthreepage" element={<StepThreePage />} />
-            <Route path="/completesetuppage" element={<CompleteSetupPage />} /> */}
+            <Route path="/completesetuppage" element={<CompleteSetupPage />} />
             <Route path="*" element={<HomePage />} />
           </Routes>
         </StepContextProvider>

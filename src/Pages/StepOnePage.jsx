@@ -13,7 +13,7 @@ import {updateShops} from "../redux/features/shopUpdateSlice";
 
 export default function StepOnePage() {
   const { setStep } = useContext(MultiStepContext);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [shopData, setShopData] = useState({
     shop_id: localStorage.getItem('shopId'),
     shopName: "",
@@ -32,7 +32,10 @@ export default function StepOnePage() {
 
   const handleOnclick = () =>{
     console.log("Shop Update Data", shopData);
-    dispatch(updateShops({ shopData }))
+    localStorage.setItem('ShopInfo', JSON.stringify(shopData));
+
+    console.log("Shop Data from localstorage", localStorage.getItem('ShopData'));
+    // dispatch(updateShops({ shopData }))
     setStep("2");
   }
 

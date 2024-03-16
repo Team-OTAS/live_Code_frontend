@@ -38,6 +38,7 @@
 }
 
 .adduser {
+  // width: 250px;
   background-color: #fff;
   display: flex;
   padding: 10px 15px;
@@ -45,7 +46,12 @@
   justify-content: space-between;
   border-radius: 10px;
   margin-bottom: 5px;
+  cursor: pointer;
   // border-color: ;
+}
+
+.adduser:hover {
+  transform: scale(0.95);
 }
 
 .adduser span {

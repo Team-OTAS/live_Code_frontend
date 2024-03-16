@@ -43,6 +43,11 @@
   justify-content: space-between;
   border-radius: 10px;
   margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.adduser:hover {
+  transform: scale(0.95);
 }
 
 .adduser span {

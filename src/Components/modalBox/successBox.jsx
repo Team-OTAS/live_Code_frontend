@@ -17,7 +17,7 @@ function SuccessBox({ message }) {
       },
     }).then((result) => {
       if (result.dismiss === Swal.DismissReason.timer) {
-        navigate("/");
+        //
       }
     });
   }, [message]);

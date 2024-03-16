@@ -6,12 +6,14 @@ import {
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getProducts } from "../../redux/features/productReducer";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import LinearProgress from "@mui/material/LinearProgress";
-import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
 import AlertBox from "../modalBox/AlertBox";
+import SuccessBox from "../modalBox/successBox";
+import {
+  useGetAllUserQuery,
+  useDeleteUserMutation,
+} from "./../../redux/features/userApiSlice";
 
 import "./../../Styles/dashboard.css";
 
@@ -25,94 +27,104 @@ function CustomToolbar() {
   );
 }
 
-const columns = [
-  {
-    field: "id",
-    headerName: "No",
-    width: 100,
-  },
-  { field: "name", headerName: "User Name", width: 150 },
-  { field: "description", headerName: "User Type", width: 200 },
-  { field: "price", headerName: "Permission", width: 300 },
-  {
-    field: "actions",
-    headerName: "Actions",
-    width: 200,
-    renderCell: (params) => (
-      <Link to={`/viewstock/${params.row.id}`}>
-        <Button
+const AccUserTable = () => {
+  const { data, isError, isLoading, message } = useGetAllUserQuery();
+  const fetchUser = useGetAllUserQuery();
+  const [deleteUser, { isLoading: loading, isError: error }] =
+    useDeleteUserMutation();
+
+  const deleteAccUser = (id) => {
+    console.log(id);
+    deleteUser(id);
+    fetchUser.refetch();
+  };
+  console.log(data);
+
+  const columns = [
+    {
+      field: "no",
+      headerName: "No",
+      width: 100,
+    },
+    { field: "user_name", headerName: "User Name", width: 200 },
+    {
+      field: "user_type",
+      headerName: "User Type",
+      width: 200,
+      renderCell: (params) => (
+        <span>{params.row.user_type_id === 2 ? "Admin" : "staff"}</span>
+      ),
+    },
+    {
+      field: "permission",
+      headerName: "Permission",
+      width: 300,
+      renderCell: (params) => (
+        <Box
           sx={{
-            background: "#354e8f",
+            background: "#4d3f3f",
             color: "white",
             padding: "10px 20px",
             borderRadius: "10px",
             fontSize: "14px",
+          }}
+        >
+          {params.row.user_type_id === 2 ? "All access" : "Customer Management"}
+        </Box>
+      ),
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 200,
+      renderCell: (params) => (
+        <Button
+          sx={{
+            background: "red",
+            color: "white",
+            padding: "10px",
+            borderRadius: "10px",
+            fontSize: "14px",
             "&:hover": {
-              backgroundColor: "#4d3f3f",
-              color: "#fff",
+              backgroundColor: "#fff",
+              border: "3px solid red",
+              color: "red",
             },
           }}
           variant="filled"
+          onClick={() => deleteAccUser(params.row.id)}
         >
-          <PreviewOutlinedIcon sx={{ marginRight: "5px" }} />
-          View Shop
+          <DeleteOutlineOutlinedIcon sx={{ fontSize: "28px" }} />
         </Button>
-      </Link>
-    ),
-  },
-];
-
-const AccUserTable = ({ sendDataToDashboard }) => {
-  const dispatch = useDispatch();
-  const { products, isLoading, isError, message } = useSelector(
-    (state) => state.stocks
-  );
-  const deletes = useSelector((state) => state.deleteproduct);
-  const sendData = (dataId) => {
-    const Deletedata = dataId;
-    sendDataToDashboard(Deletedata);
-  };
-
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [deletes.deletes]);
-
-  // console.log(products.data);
-
-  //   if (products.products.code === 200) {
-  //     console.log(products.products.data);
-  //     const rows = products.products.data.map((index, item) => ({
-  //       no: index + 1,
-  //       ...item,
-  //     }));
-  //     console.log(rows);
-  //   }
-  // }, [products]);
-
-  // const handleRowClick = (params) => {
-  // Access the clicked row data using params.row
-  // console.log("Row clicked:", params.row);
-  // You can perform additional actions based on the clicked row data
-  // };
+      ),
+    },
+  ];
 
   return (
     <Box sx={{ height: { xs: 600, md: 500 } }}>
-      <DataGrid
-        rows={products.data || []}
-        columns={columns}
-        pageSize={12}
-        checkboxSelection
-        loading={isLoading}
-        disableRowSelectionOnClick
-        slots={{
-          toolbar: CustomToolbar,
-          loadingOverlay: LinearProgress,
-        }}
-        onRowSelectionModelChange={(dataId) => {
-          sendData(dataId);
-          console.log("table", dataId);
-        }}
-      />
+      {isLoading && (
+        <div className="loading">
+          <LinearProgress />
+        </div>
+      )}
+      {!isLoading && !isError && data && (
+        <DataGrid
+          rows={data.data.data.map((row, index) => ({ ...row, no: index + 1 }))}
+          columns={columns}
+          pageSize={12}
+          checkboxSelection
+          loading={isLoading}
+          disableRowSelectionOnClick
+          slots={{
+            toolbar: CustomToolbar,
+            loadingOverlay: LinearProgress,
+          }}
+          // onRowSelectionModelChange={(dataId) => {
+          //   sendData(dataId);
+          //   console.log("table", dataId);
+          // }}
+        />
+      )}
       {!isLoading && isError ? <AlertBox message={message} /> : null}
     </Box>
   );
